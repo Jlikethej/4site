@@ -1,29 +1,27 @@
 (function () {
   const sliderHTML = `
     <style>
-     .custom-slider {
-      position: relative;
-      width: 100%;
-      max-width: 1200px;
-      aspect-ratio: 16 / 6; /* Устанавливаем пропорцию */
-      overflow: hidden;
-      margin: 20px auto;
-    }
+      .custom-slider {
+        position: relative;
+        width: 100%;
+        max-width: 1200px;
+        aspect-ratio: 16 / 6;
+        overflow: hidden;
+        margin: 20px auto;
+      }
 
-    .custom-slides {
-      display: flex;
-      width: 100%;
-      height: 100%;
-      transition: transform 0.8s ease-in-out;
-    }
+      .custom-slides {
+        display: flex;
+        height: 100%;
+        transition: transform 0.8s ease-in-out;
+      }
 
-    .custom-slides img {
-      width: 100%;
-      height: 100%;
-      flex: 0 0 100%;
-      object-fit: cover;
-      border-radius: 12px;
-    }
+      .custom-slides img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 12px;
+      }
 
       .custom-prev, .custom-next {
         position: absolute;
@@ -37,12 +35,15 @@
         padding: 10px;
         z-index: 10;
       }
+
       .custom-prev {
         left: 10px;
       }
+
       .custom-next {
         right: 10px;
       }
+
       .slider-indicator {
         position: absolute;
         bottom: 10px;
@@ -77,17 +78,24 @@
     target.insertBefore(container, target.firstChild);
 
     const slides = container.querySelector('.custom-slides');
-    const images = container.querySelectorAll('img');
+    const images = container.querySelectorAll('.custom-slides img');
     const prev = container.querySelector('.custom-prev');
     const next = container.querySelector('.custom-next');
     const indicator = container.querySelector('.slider-indicator');
-    let index = 0;
+
     const totalSlides = images.length;
+    let index = 0;
     let slideInterval;
+
+    // Устанавливаем ширину слайд-линии и ширину каждого слайда
+    slides.style.width = `${100 * totalSlides}%`;
+    images.forEach(img => {
+      img.style.flex = `0 0 ${100 / totalSlides}%`;
+    });
 
     function showSlide(i) {
       index = (i + totalSlides) % totalSlides;
-      slides.style.transform = `translateX(-${index * 100}%)`;
+      slides.style.transform = `translateX(-${index * (100 / totalSlides)}%)`;
       indicator.textContent = `${index + 1} / ${totalSlides}`;
     }
 
@@ -95,6 +103,7 @@
       showSlide(index - 1);
       resetInterval();
     };
+
     next.onclick = () => {
       showSlide(index + 1);
       resetInterval();
@@ -109,6 +118,7 @@
       startInterval();
     }
 
+    showSlide(0);
     startInterval();
   }
 
