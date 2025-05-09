@@ -8,17 +8,18 @@
         margin-bottom: 20px;
       }
       .custom-slides {
-        display: flex;
-        transition: transform 0.8s ease-in-out;
-        overflow: hidden;
-        width: 100%; /* Обеспечивает скрытие лишних слайдов */
+      display: flex;
+      transition: transform 0.8s ease-in-out;
+      width: 100%;
       }
+
       .custom-slides img {
-      flex: 1 0 100%; /* гарантирует правильную ширину */
+      width: 100%;
+      height: 100%; /* Устанавливаем высоту */
       object-fit: cover;
-      aspect-ratio: 16 / 6;
       border-radius: 12px;
       }
+
       .custom-prev, .custom-next {
         position: absolute;
         top: 50%;
