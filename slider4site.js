@@ -47,7 +47,10 @@
       <button class="custom-next">&#10095;</button>
     </div>
   `;
-  document.body.prepend(slider);
+  document.addEventListener('DOMContentLoaded', () => {
+  document.body.insertBefore(slider, document.body.firstChild);
+});
+
 
   // JS-логика
   const slides = slider.querySelector('.custom-slides');
