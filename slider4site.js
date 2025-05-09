@@ -11,14 +11,13 @@
         display: flex;
         transition: transform 0.8s ease-in-out;
         overflow: hidden;
-        width: 90%; /* Обеспечивает скрытие лишних слайдов */
+        width: 100%; /* Обеспечивает скрытие лишних слайдов */
       }
       .custom-slides img {
-        width: 100%;
-        flex-shrink: 0;
-        object-fit: cover;
-        aspect-ratio: 16 / 6;
-        border-radius: 12px;
+      flex: 1 0 100%; /* гарантирует правильную ширину */
+      object-fit: cover;
+      aspect-ratio: 16 / 6;
+      border-radius: 12px;
       }
       .custom-prev, .custom-next {
         position: absolute;
