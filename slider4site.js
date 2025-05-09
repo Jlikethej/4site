@@ -8,34 +8,36 @@
         aspect-ratio: 16 / 6;
         overflow: hidden;
         margin: 20px auto;
+        border-radius: 12px;
       }
 
       .custom-slides {
         display: flex;
-        transition: transform 0.8s ease-in-out;
+        transition: transform 0.6s ease-in-out;
         height: 100%;
       }
 
       .custom-slides img {
-        width: 100%;
-        min-width: 100%;
         flex: 0 0 100%;
+        width: 100%;
         height: 100%;
         object-fit: cover;
-        border-radius: 12px;
+        display: block;
       }
 
-      .custom-prev, .custom-next {
+      .custom-prev,
+      .custom-next {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
         background: rgba(0, 0, 0, 0.5);
         color: white;
-        font-size: 2em;
+        font-size: 1.5em;
         border: none;
         cursor: pointer;
-        padding: 10px;
+        padding: 8px 12px;
         z-index: 10;
+        border-radius: 50%;
       }
 
       .custom-prev { left: 10px; }
@@ -46,11 +48,11 @@
         bottom: 10px;
         left: 50%;
         transform: translateX(-50%);
-        color: white;
-        font-size: 1.2em;
-        padding: 5px 10px;
-        background-color: rgba(0, 0, 0, 0.5);
-        border-radius: 5px;
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 0.9em;
       }
     </style>
 
@@ -70,65 +72,64 @@
   const container = document.createElement('div');
   container.innerHTML = sliderHTML;
 
+  function preloadImages(images, callback) {
+    let loaded = 0;
+    const total = images.length;
+    images.forEach(img => {
+      if (img.complete) {
+        loaded++;
+        if (loaded === total) callback();
+      } else {
+        img.onload = img.onerror = () => {
+          loaded++;
+          if (loaded === total) callback();
+        };
+      }
+    });
+  }
+
   function initSlider() {
     const target = document.querySelector('.constructor-component__content') || document.body;
     target.insertBefore(container, target.firstChild);
 
-    const slider = container.querySelector('.custom-slider');
-    const slidesContainer = container.querySelector('.custom-slides');
+    const slidesWrapper = container.querySelector('.custom-slides');
     const images = container.querySelectorAll('.custom-slides img');
     const prev = container.querySelector('.custom-prev');
     const next = container.querySelector('.custom-next');
     const indicator = container.querySelector('.slider-indicator');
 
-    const totalSlides = images.length;
     let index = 0;
-    let slideInterval;
-
-    function updateSizes() {
-      const sliderWidth = slider.clientWidth;
-      slidesContainer.style.width = `${sliderWidth * totalSlides}px`;
-      images.forEach(img => {
-        img.style.width = `${sliderWidth}px`;
-        img.style.minWidth = `${sliderWidth}px`;
-        img.style.flex = '0 0 ' + sliderWidth + 'px';
-      });
-      showSlide(index);
-    }
+    const total = images.length;
+    let intervalId;
 
     function showSlide(i) {
-      index = (i + totalSlides) % totalSlides;
-      const offset = slider.clientWidth * index;
-      slidesContainer.style.transform = `translateX(-${offset}px)`;
-      indicator.textContent = `${index + 1} / ${totalSlides}`;
+      index = (i + total) % total;
+      slidesWrapper.style.transform = `translateX(-${index * 100}%)`;
+      indicator.textContent = `${index + 1} / ${total}`;
     }
 
-    function startInterval() {
-      slideInterval = setInterval(() => showSlide(index + 1), 5000);
+    function startAutoSlide() {
+      intervalId = setInterval(() => showSlide(index + 1), 5000);
     }
 
     function resetInterval() {
-      clearInterval(slideInterval);
-      startInterval();
+      clearInterval(intervalId);
+      startAutoSlide();
     }
 
-    prev.onclick = () => {
+    prev.addEventListener('click', () => {
       showSlide(index - 1);
       resetInterval();
-    };
-    next.onclick = () => {
+    });
+
+    next.addEventListener('click', () => {
       showSlide(index + 1);
       resetInterval();
-    };
+    });
 
-    window.addEventListener('resize', updateSizes);
-
-    Promise.all([...images].map(img => {
-      return img.complete ? Promise.resolve() : new Promise(res => img.onload = res);
-    })).then(() => {
-      updateSizes();
+    preloadImages(images, () => {
       showSlide(0);
-      startInterval();
+      startAutoSlide();
     });
   }
 
