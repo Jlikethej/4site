@@ -2,8 +2,8 @@
   // Создаём HTML
   const html = `
     <div id="floating-buttons">
-      <button id="proposal-btn">Отправить предложение</button>
-      <button id="pay-btn">Оплатить по QR-коду</button>
+      <button id="proposal-btn">Оплатить по QR-коду СБЕР</button>
+      <button id="pay-btn">Оплатить по QR-коду ВТБ</button>
     </div>
 
     <div id="modal-overlay" class="hidden"></div>
@@ -11,14 +11,14 @@
     <div id="proposal-modal" class="modal hidden">
       <div class="modal-content">
         <h2>Оплата по QR-коду СБЕР</h2>
-        <p>Здесь будет форма для отправки предложения.</p>
+        <p>вставить сюда куар от сбера</p>
         <button class="close-modal">Закрыть</button>
       </div>
     </div>
 
     <div id="pay-modal" class="modal hidden">
       <div class="modal-content">
-        <h2>Оплата по QR-коду</h2>
+        <h2>Оплата по QR-коду ВТБ</h2>
         <img src="/uploads/sites_uploads/site-1803/qr/874211/qr_site_VTB.png" style="width:100%;border-radius:12px;">
         <button class="close-modal">Закрыть</button>
       </div>
