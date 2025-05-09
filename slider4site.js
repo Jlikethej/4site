@@ -10,6 +10,7 @@
       .custom-slides {
         display: flex;
         transition: transform 0.8s ease-in-out;
+        width: 100%; /* Обеспечивает скрытие лишних слайдов */
       }
       .custom-slides img {
         width: 100%;
@@ -76,6 +77,7 @@
     const indicator = container.querySelector('.slider-indicator');
     let index = 0;
     const totalSlides = images.length;
+    let slideInterval;
 
     function showSlide(i) {
       index = (i + totalSlides) % totalSlides;
@@ -83,10 +85,25 @@
       indicator.textContent = `${index + 1} / ${totalSlides}`;
     }
 
-    prev.onclick = () => showSlide(index - 1);
-    next.onclick = () => showSlide(index + 1);
+    prev.onclick = () => {
+      showSlide(index - 1);
+      resetInterval();
+    };
+    next.onclick = () => {
+      showSlide(index + 1);
+      resetInterval();
+    };
 
-    setInterval(() => showSlide(index + 1), 5000);
+    function startInterval() {
+      slideInterval = setInterval(() => showSlide(index + 1), 5000);
+    }
+
+    function resetInterval() {
+      clearInterval(slideInterval);
+      startInterval();
+    }
+
+    startInterval();
   }
 
   if (document.readyState === 'loading') {
