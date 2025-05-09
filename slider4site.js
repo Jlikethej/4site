@@ -40,7 +40,7 @@
 
   function initSlider() {
     // Попытка вставить в main, иначе в body
-    const target = document.querySelector('main') || document.body;
+    const target = document.querySelector('.constructor-component__content') || document.body;
     target.insertBefore(container, target.firstChild);
 
     const slides = container.querySelector('.custom-slides');
