@@ -4,23 +4,27 @@
       .custom-slider {
       position: relative;
       width: 100%;
+      max-width: 1200px;
+      height: 400px; /* фиксируем высоту */
       overflow: hidden;
-      margin-bottom: 20px;
+      margin: 20px auto;
     }
 
     .custom-slides {
       display: flex;
-      width: 400%; /* 4 слайда => 4 * 100% */
+      width: 400%; /* если 4 слайда */
+      height: 100%;
       transition: transform 0.8s ease-in-out;
     }
 
     .custom-slides img {
-      width: 100%;           /* Каждый слайд 100% ширины от .custom-slider */
+      width: 100%;
+      height: 100%;
       flex: 0 0 100%;
       object-fit: cover;
-      aspect-ratio: 16 / 6;
       border-radius: 12px;
     }
+
 
       .custom-prev, .custom-next {
         position: absolute;
