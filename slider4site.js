@@ -19,7 +19,33 @@
         border-radius: 12px;
       }
       .custom-prev, .custom-next {
-        display: none;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        font-size: 2em;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        z-index: 10;
+      }
+      .custom-prev {
+        left: 10px;
+      }
+      .custom-next {
+        right: 10px;
+      }
+      .slider-indicator {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        font-size: 1.2em;
+        padding: 5px 10px;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 5px;
       }
     </style>
 
@@ -32,6 +58,7 @@
       </div>
       <button class="custom-prev">&#10094;</button>
       <button class="custom-next">&#10095;</button>
+      <div class="slider-indicator">1 / 4</div>
     </div>
   `;
 
@@ -39,18 +66,25 @@
   container.innerHTML = sliderHTML;
 
   function initSlider() {
-    // Попытка вставить в main, иначе в body
     const target = document.querySelector('.constructor-component__content') || document.body;
     target.insertBefore(container, target.firstChild);
 
     const slides = container.querySelector('.custom-slides');
     const images = container.querySelectorAll('img');
+    const prev = container.querySelector('.custom-prev');
+    const next = container.querySelector('.custom-next');
+    const indicator = container.querySelector('.slider-indicator');
     let index = 0;
+    const totalSlides = images.length;
 
     function showSlide(i) {
-      index = (i + images.length) % images.length;
+      index = (i + totalSlides) % totalSlides;
       slides.style.transform = `translateX(-${index * 100}%)`;
+      indicator.textContent = `${index + 1} / ${totalSlides}`;
     }
+
+    prev.onclick = () => showSlide(index - 1);
+    next.onclick = () => showSlide(index + 1);
 
     setInterval(() => showSlide(index + 1), 5000);
   }
