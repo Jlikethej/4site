@@ -10,7 +10,7 @@
 
     <div id="proposal-modal" class="modal hidden">
       <div class="modal-content">
-        <h2>Отправить предложение</h2>
+        <h2>Оплата по QR-коду СБЕР</h2>
         <p>Здесь будет форма для отправки предложения.</p>
         <button class="close-modal">Закрыть</button>
       </div>
