@@ -10,7 +10,8 @@
       .custom-slides {
         display: flex;
         transition: transform 0.8s ease-in-out;
-        width: 100%; /* Обеспечивает скрытие лишних слайдов */
+        overflow: hidden;
+        width: 90%; /* Обеспечивает скрытие лишних слайдов */
       }
       .custom-slides img {
         width: 100%;
