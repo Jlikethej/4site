@@ -38,10 +38,10 @@
     </style>
     <div class="custom-slider">
       <div class="custom-slides">
-        <img src="/uploads/sites_uploads/site-1803/slaider/895254/1.jpeg" style="width:100%;border-radius:12px;">
-        <img src="/uploads/sites_uploads/site-1803/slaider/895255/2.jpeg" style="width:100%;border-radius:12px;">
-        <img src="/uploads/sites_uploads/site-1803/slaider/895256/3.jpeg" style="width:100%;border-radius:12px;">
-        <img src="/uploads/sites_uploads/site-1803/slaider/895257/4.jpeg" style="width:100%;border-radius:12px;">
+        <img src="/uploads/sites_uploads/site-1803/slider/895258/1.jpeg" style="width:100%;border-radius:12px;">
+        <img src="/uploads/sites_uploads/site-1803/slider/895259/2.jpeg" style="width:100%;border-radius:12px;">
+        <img src="/uploads/sites_uploads/site-1803/slider/895260/3.jpeg" style="width:100%;border-radius:12px;">
+        <img src="/uploads/sites_uploads/site-1803/slider/895261/4.jpeg" style="width:100%;border-radius:12px;">
       </div>
       <button class="custom-prev">&#10094;</button>
       <button class="custom-next">&#10095;</button>
