@@ -10,18 +10,17 @@
 
     .custom-slides {
       display: flex;
-      width: 400%; /* 4 слайда по 100% каждый */
+      width: 400%; /* 4 слайда => 4 * 100% */
       transition: transform 0.8s ease-in-out;
     }
 
     .custom-slides img {
-      width: 100%;            /* внутри слайда */
-      flex: 0 0 25%;          /* каждый слайд занимает 25% от общего контейнера */
+      width: 100%;           /* Каждый слайд 100% ширины от .custom-slider */
+      flex: 0 0 100%;
       object-fit: cover;
       aspect-ratio: 16 / 6;
       border-radius: 12px;
     }
-
 
       .custom-prev, .custom-next {
         position: absolute;
