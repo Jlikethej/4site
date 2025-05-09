@@ -2,23 +2,26 @@
   const sliderHTML = `
     <style>
       .custom-slider {
-        position: relative;
-        width: 100%;
-        overflow: hidden;
-        margin-bottom: 20px;
-      }
-      .custom-slides {
-      display: flex;
-      transition: transform 0.8s ease-in-out;
+      position: relative;
       width: 100%;
-      }
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
 
-      .custom-slides img {
-      width: 100%;
-      height: 100%; /* Устанавливаем высоту */
+    .custom-slides {
+      display: flex;
+      width: 400%; /* 4 слайда по 100% каждый */
+      transition: transform 0.8s ease-in-out;
+    }
+
+    .custom-slides img {
+      width: 100%;            /* внутри слайда */
+      flex: 0 0 25%;          /* каждый слайд занимает 25% от общего контейнера */
       object-fit: cover;
+      aspect-ratio: 16 / 6;
       border-radius: 12px;
-      }
+    }
+
 
       .custom-prev, .custom-next {
         position: absolute;
