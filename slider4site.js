@@ -5,13 +5,12 @@
         position: relative;
         width: 100%;
         overflow: hidden;
+        margin-bottom: 20px;
       }
-
       .custom-slides {
         display: flex;
         transition: transform 0.8s ease-in-out;
       }
-
       .custom-slides img {
         width: 100%;
         flex-shrink: 0;
@@ -19,7 +18,6 @@
         aspect-ratio: 16 / 6;
         border-radius: 12px;
       }
-
       .custom-prev, .custom-next {
         display: none;
       }
@@ -41,22 +39,17 @@
   container.innerHTML = sliderHTML;
 
   function initSlider() {
-    document.body.insertBefore(container, document.body.firstChild);
+    // Попытка вставить в main, иначе в body
+    const target = document.querySelector('main') || document.body;
+    target.insertBefore(container, target.firstChild);
 
     const slides = container.querySelector('.custom-slides');
     const images = container.querySelectorAll('img');
-    const prev = container.querySelector('.custom-prev');
-    const next = container.querySelector('.custom-next');
     let index = 0;
 
     function showSlide(i) {
       index = (i + images.length) % images.length;
       slides.style.transform = `translateX(-${index * 100}%)`;
-    }
-
-    if (prev && next) {
-      prev.onclick = () => showSlide(index - 1);
-      next.onclick = () => showSlide(index + 1);
     }
 
     setInterval(() => showSlide(index + 1), 5000);
