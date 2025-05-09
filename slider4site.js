@@ -12,7 +12,7 @@
 
     .custom-slides {
       display: flex;
-      width: 400%;
+      width: 100%;
       height: 100%;
       transition: transform 0.8s ease-in-out;
     }
