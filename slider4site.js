@@ -1,18 +1,18 @@
 (function () {
   const sliderHTML = `
     <style>
-      .custom-slider {
+     .custom-slider {
       position: relative;
       width: 100%;
       max-width: 1200px;
-      height: 400px; /* фиксируем высоту */
+      aspect-ratio: 16 / 6; /* Устанавливаем пропорцию */
       overflow: hidden;
       margin: 20px auto;
     }
 
     .custom-slides {
       display: flex;
-      width: 400%; /* если 4 слайда */
+      width: 400%;
       height: 100%;
       transition: transform 0.8s ease-in-out;
     }
@@ -21,10 +21,9 @@
       width: 100%;
       height: 100%;
       flex: 0 0 100%;
-      object-fit: contain;
+      object-fit: cover;
       border-radius: 12px;
     }
-
 
       .custom-prev, .custom-next {
         position: absolute;
