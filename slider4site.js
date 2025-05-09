@@ -12,12 +12,14 @@
 
       .custom-slides {
         display: flex;
-        height: 100%;
         transition: transform 0.8s ease-in-out;
+        height: 100%;
       }
 
       .custom-slides img {
         width: 100%;
+        min-width: 100%;
+        flex: 0 0 100%;
         height: 100%;
         object-fit: cover;
         border-radius: 12px;
@@ -36,13 +38,8 @@
         z-index: 10;
       }
 
-      .custom-prev {
-        left: 10px;
-      }
-
-      .custom-next {
-        right: 10px;
-      }
+      .custom-prev { left: 10px; }
+      .custom-next { right: 10px; }
 
       .slider-indicator {
         position: absolute;
@@ -77,7 +74,8 @@
     const target = document.querySelector('.constructor-component__content') || document.body;
     target.insertBefore(container, target.firstChild);
 
-    const slides = container.querySelector('.custom-slides');
+    const slider = container.querySelector('.custom-slider');
+    const slidesContainer = container.querySelector('.custom-slides');
     const images = container.querySelectorAll('.custom-slides img');
     const prev = container.querySelector('.custom-prev');
     const next = container.querySelector('.custom-next');
@@ -87,27 +85,23 @@
     let index = 0;
     let slideInterval;
 
-    // Устанавливаем ширину слайд-линии и ширину каждого слайда
-    slides.style.width = `${100 * totalSlides}%`;
-    images.forEach(img => {
-      img.style.flex = `0 0 ${100 / totalSlides}%`;
-    });
+    function updateSizes() {
+      const sliderWidth = slider.clientWidth;
+      slidesContainer.style.width = `${sliderWidth * totalSlides}px`;
+      images.forEach(img => {
+        img.style.width = `${sliderWidth}px`;
+        img.style.minWidth = `${sliderWidth}px`;
+        img.style.flex = '0 0 ' + sliderWidth + 'px';
+      });
+      showSlide(index);
+    }
 
     function showSlide(i) {
       index = (i + totalSlides) % totalSlides;
-      slides.style.transform = `translateX(-${index * (100 / totalSlides)}%)`;
+      const offset = slider.clientWidth * index;
+      slidesContainer.style.transform = `translateX(-${offset}px)`;
       indicator.textContent = `${index + 1} / ${totalSlides}`;
     }
-
-    prev.onclick = () => {
-      showSlide(index - 1);
-      resetInterval();
-    };
-
-    next.onclick = () => {
-      showSlide(index + 1);
-      resetInterval();
-    };
 
     function startInterval() {
       slideInterval = setInterval(() => showSlide(index + 1), 5000);
@@ -118,8 +112,24 @@
       startInterval();
     }
 
-    showSlide(0);
-    startInterval();
+    prev.onclick = () => {
+      showSlide(index - 1);
+      resetInterval();
+    };
+    next.onclick = () => {
+      showSlide(index + 1);
+      resetInterval();
+    };
+
+    window.addEventListener('resize', updateSizes);
+
+    Promise.all([...images].map(img => {
+      return img.complete ? Promise.resolve() : new Promise(res => img.onload = res);
+    })).then(() => {
+      updateSizes();
+      showSlide(0);
+      startInterval();
+    });
   }
 
   if (document.readyState === 'loading') {
