@@ -1,73 +1,70 @@
-(function() {
-  // Создание HTML-структуры
-  const slider = document.createElement('div');
-  slider.innerHTML = `
+(function () {
+  const sliderHTML = `
     <style>
       .custom-slider {
         position: relative;
         width: 100%;
-        max-width: 1200px;
-        height: 400px;
         overflow: hidden;
-        margin: auto;
       }
+
       .custom-slides {
         display: flex;
-        width: 300%;
-        transition: transform 0.5s ease-in-out;
-        height: 100%;
+        transition: transform 0.8s ease-in-out;
       }
+
       .custom-slides img {
         width: 100%;
+        flex-shrink: 0;
         object-fit: cover;
+        aspect-ratio: 16 / 6;
+        border-radius: 12px;
       }
+
       .custom-prev, .custom-next {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background: rgba(0,0,0,0.5);
-        color: white;
-        font-size: 2em;
-        border: none;
-        cursor: pointer;
-        padding: 0 10px;
-        z-index: 10;
+        display: none;
       }
-      .custom-prev { left: 10px; }
-      .custom-next { right: 10px; }
     </style>
+
     <div class="custom-slider">
       <div class="custom-slides">
-        <img src="/uploads/sites_uploads/site-1803/slider/895258/1.jpeg" style="width:100%;border-radius:12px;">
-        <img src="/uploads/sites_uploads/site-1803/slider/895259/2.jpeg" style="width:100%;border-radius:12px;">
-        <img src="/uploads/sites_uploads/site-1803/slider/895260/3.jpeg" style="width:100%;border-radius:12px;">
-        <img src="/uploads/sites_uploads/site-1803/slider/895261/4.jpeg" style="width:100%;border-radius:12px;">
+        <img src="/uploads/sites_uploads/site-1803/slider/895258/1.jpeg" alt="">
+        <img src="/uploads/sites_uploads/site-1803/slider/895259/2.jpeg" alt="">
+        <img src="/uploads/sites_uploads/site-1803/slider/895260/3.jpeg" alt="">
+        <img src="/uploads/sites_uploads/site-1803/slider/895261/4.jpeg" alt="">
       </div>
       <button class="custom-prev">&#10094;</button>
       <button class="custom-next">&#10095;</button>
     </div>
   `;
-  document.addEventListener('DOMContentLoaded', () => {
-  document.body.insertBefore(slider, document.body.firstChild);
-});
 
+  const container = document.createElement('div');
+  container.innerHTML = sliderHTML;
 
-  // JS-логика
-  const slides = slider.querySelector('.custom-slides');
-  const images = slider.querySelectorAll('img');
-  const prev = slider.querySelector('.custom-prev');
-  const next = slider.querySelector('.custom-next');
-  let index = 0;
+  function initSlider() {
+    document.body.insertBefore(container, document.body.firstChild);
 
-  function showSlide(i) {
-    if (i < 0) index = images.length - 1;
-    else if (i >= images.length) index = 0;
-    else index = i;
-    slides.style.transform = `translateX(-${index * 100}%)`;
+    const slides = container.querySelector('.custom-slides');
+    const images = container.querySelectorAll('img');
+    const prev = container.querySelector('.custom-prev');
+    const next = container.querySelector('.custom-next');
+    let index = 0;
+
+    function showSlide(i) {
+      index = (i + images.length) % images.length;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+    }
+
+    if (prev && next) {
+      prev.onclick = () => showSlide(index - 1);
+      next.onclick = () => showSlide(index + 1);
+    }
+
+    setInterval(() => showSlide(index + 1), 5000);
   }
 
-  prev.onclick = () => showSlide(index - 1);
-  next.onclick = () => showSlide(index + 1);
-
-  setInterval(() => showSlide(index + 1), 5000);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSlider);
+  } else {
+    initSlider();
+  }
 })();
