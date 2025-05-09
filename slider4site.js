@@ -36,6 +36,17 @@
       .custom-next {
         right: 10px;
       }
+      .slider-indicator {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        font-size: 1.2em;
+        padding: 5px 10px;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 5px;
+      }
     </style>
 
     <div class="custom-slider">
@@ -47,6 +58,7 @@
       </div>
       <button class="custom-prev">&#10094;</button>
       <button class="custom-next">&#10095;</button>
+      <div class="slider-indicator">1 / 4</div>
     </div>
   `;
 
@@ -61,11 +73,14 @@
     const images = container.querySelectorAll('img');
     const prev = container.querySelector('.custom-prev');
     const next = container.querySelector('.custom-next');
+    const indicator = container.querySelector('.slider-indicator');
     let index = 0;
+    const totalSlides = images.length;
 
     function showSlide(i) {
-      index = (i + images.length) % images.length;
+      index = (i + totalSlides) % totalSlides;
       slides.style.transform = `translateX(-${index * 100}%)`;
+      indicator.textContent = `${index + 1} / ${totalSlides}`;
     }
 
     prev.onclick = () => showSlide(index - 1);
