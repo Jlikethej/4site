@@ -119,7 +119,7 @@
     const images = container.querySelectorAll('.custom-slides img');
     const prev = container.querySelector('.custom-prev');
     const next = container.querySelector('.custom-next');
-    const indicator = container.querySelector('.slider-indicator');
+ //   const indicator = container.querySelector('.slider-indicator');
     const dotsContainer = container.querySelector('.dots-container');
 
     let index = 0;
@@ -146,12 +146,12 @@
       });
     }
 
-  //  function showSlide(i) {
- //     index = (i + total) % total;
-   //   slidesWrapper.style.transform = `translateX(-${index * 100}%)`;
-   //   indicator.textContent = `${index + 1} / ${total}`;
-  //    updateDots();
- //   }
+    function showSlide(i) {
+    index = (i + total) % total;
+    slidesWrapper.style.transform = `translateX(-${index * 100}%)`;
+    indicator.textContent = `${index + 1} / ${total}`;
+    updateDots();
+   }
 
     function startAutoSlide() {
       intervalId = setInterval(() => showSlide(index + 1), 5000);
