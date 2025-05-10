@@ -13,7 +13,7 @@
 
       .custom-slides {
         display: flex;
-        height: 100%;
+        transition: transform 0.6s ease-in-out;
       }
 
       .custom-slides img {
@@ -25,35 +25,15 @@
         flex-basis: 100%;
         display: block;
       }
-
-      .custom-prev,
-      .custom-next {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background: rgba(0, 0, 0, 0.5);
-        color: white;
-        font-size: 1.5em;
-        border: none;
-        cursor: pointer;
-        padding: 8px 12px;
-        z-index: 10;
-        border-radius: 50%;
-      }
-
-      .custom-prev { left: 10px; }
-      .custom-next { right: 10px; }
     </style>
 
     <div class="custom-slider">
       <div class="custom-slides">
-        <img src="/uploads/sites_uploads/site-1803/slider/895422/1.jpg" alt="">
-        <img src="/uploads/sites_uploads/site-1803/slider/895259/2.jpeg" alt="">
-        <img src="/uploads/sites_uploads/site-1803/slider/895260/3.jpeg" alt="">
-        <img src="/uploads/sites_uploads/site-1803/slider/895261/4.jpeg" alt="">
+        <img src="/uploads/sites_uploads/site-1803/slider/895422/1.jpg" alt="" data-index="0">
+        <img src="/uploads/sites_uploads/site-1803/slider/895259/2.jpeg" alt="" data-index="1">
+        <img src="/uploads/sites_uploads/site-1803/slider/895260/3.jpeg" alt="" data-index="2">
+        <img src="/uploads/sites_uploads/site-1803/slider/895261/4.jpeg" alt="" data-index="3">
       </div>
-      <button class="custom-prev">&#10094;</button>
-      <button class="custom-next">&#10095;</button>
     </div>
   `;
 
@@ -66,27 +46,23 @@
 
     const slidesWrapper = container.querySelector('.custom-slides');
     const images = container.querySelectorAll('.custom-slides img');
-    const prev = container.querySelector('.custom-prev');
-    const next = container.querySelector('.custom-next');
 
     let index = 0;
     const total = images.length;
 
     function showSlide(i) {
-      index = (i + total) % total;
+      index = (i + total) % total; // цикл по слайдам
       slidesWrapper.style.transform = `translateX(-${index * 100}%)`;
     }
 
-    prev.addEventListener('click', () => {
-      showSlide(index - 1);
-    });
+    function startAutoSlide() {
+      setInterval(() => {
+        showSlide(index + 1);
+      }, 5000); // смена слайда каждые 5 секунд
+    }
 
-    next.addEventListener('click', () => {
-      showSlide(index + 1);
-    });
-
-    // Initialize by showing the first slide
-    showSlide(0);
+    showSlide(index);  // Показываем первый слайд
+    startAutoSlide();  // Запускаем автоматический слайдер
   }
 
   if (document.readyState === 'loading') {
