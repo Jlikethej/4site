@@ -57,27 +57,25 @@
         font-size: 0.9em;
       }
 
-      .slider-dots {
+      .dots-container {
         position: absolute;
         bottom: 10px;
-        width: 100%;
-        text-align: center;
-        z-index: 9;
+        right: 10px;
+        display: flex;
+        gap: 6px;
       }
 
-      .slider-dot {
-        display: inline-block;
+      .dot {
         width: 10px;
         height: 10px;
-        margin: 0 4px;
-        background-color: rgba(255, 255, 255, 0.5);
         border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
         cursor: pointer;
-        transition: background-color 0.3s;
+        transition: background 0.3s;
       }
 
-      .slider-dot.active {
-        background-color: white;
+      .dot.active {
+        background: white;
       }
     </style>
 
@@ -91,97 +89,8 @@
       <button class="custom-prev">&#10094;</button>
       <button class="custom-next">&#10095;</button>
       <div class="slider-indicator">1 / 4</div>
-      <div class="slider-dots"></div>
+      <div class="dots-container"></div>
     </div>
   `;
 
   const container = document.createElement('div');
-  container.innerHTML = sliderHTML;
-
-  function preloadImages(images, callback) {
-    let loaded = 0;
-    const total = images.length;
-    images.forEach(img => {
-      if (img.complete) {
-        loaded++;
-        if (loaded === total) callback();
-      } else {
-        img.onload = img.onerror = () => {
-          loaded++;
-          if (loaded === total) callback();
-        };
-      }
-    });
-  }
-
-  function initSlider() {
-    const target = document.querySelector('.constructor-component__content') || document.body;
-    target.insertBefore(container, target.firstChild);
-
-    const slidesWrapper = container.querySelector('.custom-slides');
-    const images = container.querySelectorAll('.custom-slides img');
-    const prev = container.querySelector('.custom-prev');
-    const next = container.querySelector('.custom-next');
-    const indicator = container.querySelector('.slider-indicator');
-    const dotsContainer = container.querySelector('.slider-dots');
-
-    let index = 0;
-    const total = images.length;
-    let intervalId;
-
-    // Создание точек
-    const dots = Array.from({ length: total }, (_, i) => {
-      const dot = document.createElement('span');
-      dot.className = 'slider-dot';
-      dot.addEventListener('click', () => {
-        showSlide(i);
-        resetInterval();
-      });
-      dotsContainer.appendChild(dot);
-      return dot;
-    });
-
-    function updateDots() {
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === index);
-      });
-    }
-
-    function showSlide(i) {
-      index = (i + total) % total;
-      slidesWrapper.style.transform = \`translateX(-\${index * 100}%)\`;
-      indicator.textContent = \`\${index + 1} / \${total}\`;
-      updateDots();
-    }
-
-    function startAutoSlide() {
-      intervalId = setInterval(() => showSlide(index + 1), 5000);
-    }
-
-    function resetInterval() {
-      clearInterval(intervalId);
-      startAutoSlide();
-    }
-
-    prev.addEventListener('click', () => {
-      showSlide(index - 1);
-      resetInterval();
-    });
-
-    next.addEventListener('click', () => {
-      showSlide(index + 1);
-      resetInterval();
-    });
-
-    preloadImages([...images], () => {
-      showSlide(0);
-      startAutoSlide();
-    });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initSlider);
-  } else {
-    initSlider();
-  }
-})();
