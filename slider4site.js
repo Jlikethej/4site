@@ -18,10 +18,12 @@
       }
 
       .custom-slides img {
-        flex: 0 0 100%;
         width: 100%;
         height: 100%;
         object-fit: cover;
+        flex-shrink: 0;
+        flex-grow: 0;
+        flex-basis: 100%;
         display: block;
       }
 
@@ -104,8 +106,8 @@
 
     function showSlide(i) {
       index = (i + total) % total;
-      slidesWrapper.style.transform = `translateX(-${index * 100}%)`;
-      indicator.textContent = `${index + 1} / ${total}`;
+      slidesWrapper.style.transform = \`translateX(-\${index * 100}%)\`;
+      indicator.textContent = \`\${index + 1} / \${total}\`;
     }
 
     function startAutoSlide() {
@@ -127,7 +129,7 @@
       resetInterval();
     });
 
-    preloadImages(images, () => {
+    preloadImages([...images], () => {
       showSlide(0);
       startAutoSlide();
     });
