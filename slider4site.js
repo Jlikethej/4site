@@ -5,7 +5,7 @@
         position: relative;
         width: 100%;
         max-width: 1200px;
-        aspect-ratio: 16 / 6;
+        aspect-ratio: 1021 / 378;
         overflow: hidden;
         margin: 20px auto;
         border-radius: 12px;
