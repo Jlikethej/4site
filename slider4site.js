@@ -12,20 +12,19 @@
       }
 
       .custom-slides {
-        display: flex;
-        transition: transform 0.6s ease-in-out;
-        height: 100%;
-      }
+      display: grid;
+      grid-template-columns: repeat(4, 100%); /* 4 слайда, каждый из которых занимает 100% ширины */
+      transition: transform 0.6s ease-in-out;
+      height: 100%;
+    }
 
-      .custom-slides img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        flex-shrink: 0;
-        flex-grow: 0;
-        flex-basis: 100%;
-        display: block;
-      }
+    .custom-slides img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
 
       .custom-prev,
       .custom-next {
