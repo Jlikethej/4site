@@ -147,12 +147,12 @@
       });
     }
 
-    function showSlide(i) {
-      index = (i + total) % total;
-      slidesWrapper.style.transform = `translateX(-${index * 100}%)`;
-      indicator.textContent = `${index + 1} / ${total}`;
-      updateDots();
-    }
+  //  function showSlide(i) {
+ //     index = (i + total) % total;
+   //   slidesWrapper.style.transform = `translateX(-${index * 100}%)`;
+   //   indicator.textContent = `${index + 1} / ${total}`;
+  //    updateDots();
+ //   }
 
     function startAutoSlide() {
       intervalId = setInterval(() => showSlide(index + 1), 5000);
