@@ -12,19 +12,20 @@
       }
 
       .custom-slides {
-      display: grid;
-      grid-template-columns: repeat(4, 100%); /* 4 слайда, каждый из которых занимает 100% ширины */
-      transition: transform 0.6s ease-in-out;
-      height: 100%;
-    }
+        display: flex;
+        transition: transform 0.6s ease-in-out;
+        height: 100%;
+      }
 
-    .custom-slides img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
+      .custom-slides img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        flex-shrink: 0;
+        flex-grow: 0;
+        flex-basis: 100%;
+        display: block;
+      }
 
       .custom-prev,
       .custom-next {
@@ -43,39 +44,6 @@
 
       .custom-prev { left: 10px; }
       .custom-next { right: 10px; }
-
-      .slider-indicator {
-        position: absolute;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(0, 0, 0, 0.5);
-        color: #fff;
-        padding: 4px 10px;
-        border-radius: 6px;
-        font-size: 0.9em;
-      }
-
-      .dots-container {
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
-        display: flex;
-        gap: 6px;
-      }
-
-      .dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.5);
-        cursor: pointer;
-        transition: background 0.3s;
-      }
-
-      .dot.active {
-        background: white;
-      }
     </style>
 
     <div class="custom-slider">
@@ -87,8 +55,6 @@
       </div>
       <button class="custom-prev">&#10094;</button>
       <button class="custom-next">&#10095;</button>
-      <div class="slider-indicator">1 / 4</div>
-      <div class="dots-container"></div>
     </div>
   `;
 
@@ -119,39 +85,15 @@
     const images = container.querySelectorAll('.custom-slides img');
     const prev = container.querySelector('.custom-prev');
     const next = container.querySelector('.custom-next');
- //   const indicator = container.querySelector('.slider-indicator');
-    const dotsContainer = container.querySelector('.dots-container');
 
     let index = 0;
     const total = images.length;
     let intervalId;
 
-    // Создание точек
-    const dots = [];
-    for (let i = 0; i < total; i++) {
-      const dot = document.createElement('div');
-      dot.classList.add('dot');
-      if (i === 0) dot.classList.add('active');
-      dot.addEventListener('click', () => {
-        showSlide(i);
-        resetInterval();
-      });
-      dotsContainer.appendChild(dot);
-      dots.push(dot);
-    }
-
-    function updateDots() {
-      dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === index);
-      });
-    }
-
     function showSlide(i) {
-    index = (i + total) % total;
-    slidesWrapper.style.transform = `translateX(-${index * 100}%)`;
-    indicator.textContent = `${index + 1} / ${total}`;
-    updateDots();
-   }
+      index = (i + total) % total;
+      slidesWrapper.style.transform = `translateX(-${index * 100}%)`;
+    }
 
     function startAutoSlide() {
       intervalId = setInterval(() => showSlide(index + 1), 5000);
