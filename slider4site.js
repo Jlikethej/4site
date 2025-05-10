@@ -56,6 +56,29 @@
         border-radius: 6px;
         font-size: 0.9em;
       }
+
+      .slider-dots {
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
+        text-align: center;
+        z-index: 9;
+      }
+
+      .slider-dot {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        margin: 0 4px;
+        background-color: rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .slider-dot.active {
+        background-color: white;
+      }
     </style>
 
     <div class="custom-slider">
@@ -68,6 +91,7 @@
       <button class="custom-prev">&#10094;</button>
       <button class="custom-next">&#10095;</button>
       <div class="slider-indicator">1 / 4</div>
+      <div class="slider-dots"></div>
     </div>
   `;
 
@@ -99,15 +123,35 @@
     const prev = container.querySelector('.custom-prev');
     const next = container.querySelector('.custom-next');
     const indicator = container.querySelector('.slider-indicator');
+    const dotsContainer = container.querySelector('.slider-dots');
 
     let index = 0;
     const total = images.length;
     let intervalId;
 
+    // Создание точек
+    const dots = Array.from({ length: total }, (_, i) => {
+      const dot = document.createElement('span');
+      dot.className = 'slider-dot';
+      dot.addEventListener('click', () => {
+        showSlide(i);
+        resetInterval();
+      });
+      dotsContainer.appendChild(dot);
+      return dot;
+    });
+
+    function updateDots() {
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+    }
+
     function showSlide(i) {
       index = (i + total) % total;
       slidesWrapper.style.transform = \`translateX(-\${index * 100}%)\`;
       indicator.textContent = \`\${index + 1} / \${total}\`;
+      updateDots();
     }
 
     function startAutoSlide() {
