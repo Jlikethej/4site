@@ -94,3 +94,94 @@
   `;
 
   const container = document.createElement('div');
+  container.innerHTML = sliderHTML;
+
+  function preloadImages(images, callback) {
+    let loaded = 0;
+    const total = images.length;
+    images.forEach(img => {
+      if (img.complete) {
+        loaded++;
+        if (loaded === total) callback();
+      } else {
+        img.onload = img.onerror = () => {
+          loaded++;
+          if (loaded === total) callback();
+        };
+      }
+    });
+  }
+
+  function initSlider() {
+    const target = document.querySelector('.constructor-component__content') || document.body;
+    target.insertBefore(container, target.firstChild);
+
+    const slidesWrapper = container.querySelector('.custom-slides');
+    const images = container.querySelectorAll('.custom-slides img');
+    const prev = container.querySelector('.custom-prev');
+    const next = container.querySelector('.custom-next');
+    const indicator = container.querySelector('.slider-indicator');
+    const dotsContainer = container.querySelector('.dots-container');
+
+    let index = 0;
+    const total = images.length;
+    let intervalId;
+
+    // Создание точек
+    const dots = [];
+    for (let i = 0; i < total; i++) {
+      const dot = document.createElement('div');
+      dot.classList.add('dot');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => {
+        showSlide(i);
+        resetInterval();
+      });
+      dotsContainer.appendChild(dot);
+      dots.push(dot);
+    }
+
+    function updateDots() {
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+    }
+
+    function showSlide(i) {
+      index = (i + total) % total;
+      slidesWrapper.style.transform = `translateX(-${index * 100}%)`;
+      indicator.textContent = `${index + 1} / ${total}`;
+      updateDots();
+    }
+
+    function startAutoSlide() {
+      intervalId = setInterval(() => showSlide(index + 1), 5000);
+    }
+
+    function resetInterval() {
+      clearInterval(intervalId);
+      startAutoSlide();
+    }
+
+    prev.addEventListener('click', () => {
+      showSlide(index - 1);
+      resetInterval();
+    });
+
+    next.addEventListener('click', () => {
+      showSlide(index + 1);
+      resetInterval();
+    });
+
+    preloadImages([...images], () => {
+      showSlide(0);
+      startAutoSlide();
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSlider);
+  } else {
+    initSlider();
+  }
+})();
