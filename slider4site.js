@@ -13,26 +13,27 @@
 
       .custom-slides {
         display: flex;
-        transition: transform 0.6s ease-in-out;
+        width: 100%;
       }
 
       .custom-slides img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        flex-shrink: 0;
-        flex-grow: 0;
-        flex-basis: 100%;
-        display: block;
+        display: none; /* Все слайды скрыты по умолчанию */
+      }
+
+      .custom-slides img.active {
+        display: block; /* Показываем только активный слайд */
       }
     </style>
 
     <div class="custom-slider">
       <div class="custom-slides">
-        <img src="/uploads/sites_uploads/site-1803/slider/895422/1.jpg" alt="" data-index="0">
-        <img src="/uploads/sites_uploads/site-1803/slider/895259/2.jpeg" alt="" data-index="1">
-        <img src="/uploads/sites_uploads/site-1803/slider/895260/3.jpeg" alt="" data-index="2">
-        <img src="/uploads/sites_uploads/site-1803/slider/895261/4.jpeg" alt="" data-index="3">
+        <img src="/uploads/sites_uploads/site-1803/slider/895422/1.jpg" alt="">
+        <img src="/uploads/sites_uploads/site-1803/slider/895259/2.jpeg" alt="">
+        <img src="/uploads/sites_uploads/site-1803/slider/895260/3.jpeg" alt="">
+        <img src="/uploads/sites_uploads/site-1803/slider/895261/4.jpeg" alt="">
       </div>
     </div>
   `;
@@ -44,21 +45,20 @@
     const target = document.querySelector('.constructor-component__content') || document.body;
     target.insertBefore(container, target.firstChild);
 
-    const slidesWrapper = container.querySelector('.custom-slides');
     const images = container.querySelectorAll('.custom-slides img');
-
     let index = 0;
     const total = images.length;
 
     function showSlide(i) {
-      index = (i + total) % total; // цикл по слайдам
-      slidesWrapper.style.transform = `translateX(-${index * 100}%)`;
+      images.forEach(img => img.classList.remove('active')); // Скрываем все слайды
+      images[i].classList.add('active'); // Показываем текущий слайд
     }
 
     function startAutoSlide() {
       setInterval(() => {
-        showSlide(index + 1);
-      }, 5000); // смена слайда каждые 5 секунд
+        index = (index + 1) % total; // Переходим к следующему слайду с циклическим переходом
+        showSlide(index);
+      }, 5000); // Смена слайда каждые 5 секунд
     }
 
     showSlide(index);  // Показываем первый слайд
