@@ -51,18 +51,6 @@
       .custom-prev { left: 10px; }
       .custom-next { right: 10px; }
 
-      .slider-indicator {
-        position: absolute;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(0, 0, 0, 0.5);
-        color: #fff;
-        padding: 4px 10px;
-        border-radius: 6px;
-        font-size: 0.9em;
-      }
-
       .slider-dots {
         position: absolute;
         bottom: 10px;
@@ -96,7 +84,6 @@
       </div>
       <button class="custom-prev">&#10094;</button>
       <button class="custom-next">&#10095;</button>
-      <div class="slider-indicator">1 / 4</div>
       <div class="slider-dots">
         <span class="dot active"></span>
         <span class="dot"></span>
@@ -133,7 +120,6 @@
     const images = container.querySelectorAll('.custom-slides img');
     const prev = container.querySelector('.custom-prev');
     const next = container.querySelector('.custom-next');
-    const indicator = container.querySelector('.slider-indicator');
     const dots = container.querySelectorAll('.slider-dots .dot');
 
     let index = 0;
@@ -148,7 +134,6 @@
       });
       images[index].classList.add('active');
       dots[index].classList.add('active');
-      indicator.textContent = `${index + 1} / ${total}`;
     }
 
     function startAutoSlide() {
