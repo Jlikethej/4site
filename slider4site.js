@@ -12,19 +12,25 @@
       }
 
       .custom-slides {
-        display: flex;
+        position: relative;
         width: 100%;
+        height: 100%;
       }
 
       .custom-slides img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        display: none; /* Все слайды скрыты по умолчанию */
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity 0.6s ease-in-out;
+        display: block;
       }
 
       .custom-slides img.active {
-        display: block; /* Показываем только активный слайд */
+        opacity: 1;
       }
 
       .custom-prev,
@@ -50,39 +56,52 @@
         bottom: 10px;
         left: 50%;
         transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 0.9em;
+      }
+
+      .slider-dots {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
         display: flex;
         justify-content: center;
         gap: 10px;
+        z-index: 10;
       }
 
-      .slider-indicator button {
-        background-color: rgba(0, 0, 0, 0.5);
-        border: none;
-        padding: 8px;
+      .slider-dots span {
+        width: 10px;
+        height: 10px;
+        background-color: rgba(255, 255, 255, 0.5);
         border-radius: 50%;
         cursor: pointer;
-        transition: background-color 0.3s;
       }
 
-      .slider-indicator button.active {
-        background-color: rgba(255, 255, 255, 0.7);
+      .slider-dots .active {
+        background-color: white;
       }
     </style>
 
     <div class="custom-slider">
       <div class="custom-slides">
-        <img src="/uploads/sites_uploads/site-1803/slider/895422/1.jpg" alt="">
+        <img src="/uploads/sites_uploads/site-1803/slider/895422/1.jpg" alt="" class="active">
         <img src="/uploads/sites_uploads/site-1803/slider/895259/2.jpeg" alt="">
         <img src="/uploads/sites_uploads/site-1803/slider/895260/3.jpeg" alt="">
         <img src="/uploads/sites_uploads/site-1803/slider/895261/4.jpeg" alt="">
       </div>
       <button class="custom-prev">&#10094;</button>
       <button class="custom-next">&#10095;</button>
-      <div class="slider-indicator">
-        <button data-slide="0" class="active"></button>
-        <button data-slide="1"></button>
-        <button data-slide="2"></button>
-        <button data-slide="3"></button>
+      <div class="slider-indicator">1 / 4</div>
+      <div class="slider-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
       </div>
     </div>
   `;
@@ -90,64 +109,78 @@
   const container = document.createElement('div');
   container.innerHTML = sliderHTML;
 
+  function preloadImages(images, callback) {
+    let loaded = 0;
+    const total = images.length;
+    images.forEach(img => {
+      if (img.complete) {
+        loaded++;
+        if (loaded === total) callback();
+      } else {
+        img.onload = img.onerror = () => {
+          loaded++;
+          if (loaded === total) callback();
+        };
+      }
+    });
+  }
+
   function initSlider() {
     const target = document.querySelector('.constructor-component__content') || document.body;
     target.insertBefore(container, target.firstChild);
 
+    const slidesWrapper = container.querySelector('.custom-slides');
     const images = container.querySelectorAll('.custom-slides img');
     const prev = container.querySelector('.custom-prev');
     const next = container.querySelector('.custom-next');
-    const indicatorButtons = container.querySelectorAll('.slider-indicator button');
+    const indicator = container.querySelector('.slider-indicator');
+    const dots = container.querySelectorAll('.slider-dots .dot');
+
     let index = 0;
     const total = images.length;
     let intervalId;
 
-    // Функция для отображения слайда
     function showSlide(i) {
-      images.forEach(img => img.classList.remove('active')); // Скрываем все слайды
-      indicatorButtons.forEach(button => button.classList.remove('active')); // Убираем активные индикаторы
-      images[i].classList.add('active'); // Показываем текущий слайд
-      indicatorButtons[i].classList.add('active'); // Отображаем активный индикатор
+      index = (i + total) % total;
+      images.forEach((img, i) => {
+        img.classList.remove('active');
+        dots[i].classList.remove('active');
+      });
+      images[index].classList.add('active');
+      dots[index].classList.add('active');
+      indicator.textContent = `${index + 1} / ${total}`;
     }
 
-    // Запуск автоперелистывания слайдов
     function startAutoSlide() {
-      intervalId = setInterval(() => {
-        index = (index + 1) % total; // Переходим к следующему слайду с циклическим переходом
-        showSlide(index);
-      }, 5000); // Смена слайда каждые 5 секунд
+      intervalId = setInterval(() => showSlide(index + 1), 5000);
     }
 
-    // Сбросить интервал и перезапустить автоперелистывание
     function resetInterval() {
       clearInterval(intervalId);
       startAutoSlide();
     }
 
-    // Обработчики кликов по кнопкам
     prev.addEventListener('click', () => {
-      index = (index - 1 + total) % total; // Переход к предыдущему слайду
-      showSlide(index);
+      showSlide(index - 1);
       resetInterval();
     });
 
     next.addEventListener('click', () => {
-      index = (index + 1) % total; // Переход к следующему слайду
-      showSlide(index);
+      showSlide(index + 1);
       resetInterval();
     });
 
-    // Обработчик кликов по индикаторам
-    indicatorButtons.forEach(button => {
-      button.addEventListener('click', (e) => {
-        index = parseInt(e.target.getAttribute('data-slide')); // Переход на слайд по индикатору
-        showSlide(index);
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        showSlide(i);
         resetInterval();
       });
     });
 
-    showSlide(index);  // Показываем первый слайд
-    startAutoSlide();  // Запускаем автоматический слайдер
+    preloadImages([...images], () => {
+      showSlide(0);
+      startAutoSlide();
+    });
   }
 
   if (document.readyState === 'loading') {
