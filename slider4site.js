@@ -58,7 +58,7 @@
 
     <div class="custom-slider">
       <div class="custom-slides">
-        <img src="/uploads/sites_uploads/site-1803/slider/895258/1.jpeg" alt="">
+        <img src="/uploads/sites_uploads/site-1803/slider/895422/1.jpg" alt="">
         <img src="/uploads/sites_uploads/site-1803/slider/895259/2.jpeg" alt="">
         <img src="/uploads/sites_uploads/site-1803/slider/895260/3.jpeg" alt="">
         <img src="/uploads/sites_uploads/site-1803/slider/895261/4.jpeg" alt="">
