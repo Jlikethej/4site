@@ -13,7 +13,6 @@
 
       .custom-slides {
         display: flex;
-        transition: transform 0.6s ease-in-out;
         height: 100%;
       }
 
@@ -61,22 +60,6 @@
   const container = document.createElement('div');
   container.innerHTML = sliderHTML;
 
-  function preloadImages(images, callback) {
-    let loaded = 0;
-    const total = images.length;
-    images.forEach(img => {
-      if (img.complete) {
-        loaded++;
-        if (loaded === total) callback();
-      } else {
-        img.onload = img.onerror = () => {
-          loaded++;
-          if (loaded === total) callback();
-        };
-      }
-    });
-  }
-
   function initSlider() {
     const target = document.querySelector('.constructor-component__content') || document.body;
     target.insertBefore(container, target.firstChild);
@@ -88,36 +71,22 @@
 
     let index = 0;
     const total = images.length;
-    let intervalId;
 
     function showSlide(i) {
       index = (i + total) % total;
       slidesWrapper.style.transform = `translateX(-${index * 100}%)`;
     }
 
-    function startAutoSlide() {
-      intervalId = setInterval(() => showSlide(index + 1), 5000);
-    }
-
-    function resetInterval() {
-      clearInterval(intervalId);
-      startAutoSlide();
-    }
-
     prev.addEventListener('click', () => {
       showSlide(index - 1);
-      resetInterval();
     });
 
     next.addEventListener('click', () => {
       showSlide(index + 1);
-      resetInterval();
     });
 
-    preloadImages([...images], () => {
-      showSlide(0);
-      startAutoSlide();
-    });
+    // Initialize by showing the first slide
+    showSlide(0);
   }
 
   if (document.readyState === 'loading') {
