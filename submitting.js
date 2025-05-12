@@ -1,4 +1,3 @@
-<script>
 (function () {
   const html = `
     <div id="form-container">
@@ -198,4 +197,3 @@
       });
   });
 })();
-</script>
