@@ -211,13 +211,13 @@ Email: ${formData.get("email")}
       attachments: attachments
     };
 
-    try {
-      const response = await fetch("https://api.sendgrid.com/v3/mail/send", {
-        method: "POST",
-        headers: {
-          "Authorization": "Bearer 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",
-          "Content-Type": "application/json"
-        },
+     try {
+    const response = await fetch("https://cors-anywhere.herokuapp.com/https://api.sendgrid.com/v3/mail/send", {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer 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",
+        "Content-Type": "application/json"
+      },
         body: JSON.stringify(body)
       });
 
@@ -241,4 +241,3 @@ Email: ${formData.get("email")}
     });
   }
 })();
-
