@@ -194,9 +194,17 @@
 
   function initGoogleAuth() {
     gapi.auth2.init({
-      client_id: '837486853816-preg9mlngaqoi5kp4mkafjv6shmle2ua.apps.googleusercontent.com', // Исправил проблему с пробелом в client_id
+      client_id: '837486853816-preg9mlngaqoi5kp4mkafjv6shmle2ua.apps.googleusercontent.com', // client_id для OAuth
     }).then(() => {
       gapiLoaded = true;
+    });
+  }
+
+  // Инициализация Google Drive API с ключом API
+  function initGoogleDriveAPI() {
+    gapi.client.setApiKey('AIzaSyDlX6SI9_vsqnWlmYORSua0Cv_8dHSyPUw'); // Ключ API для Google Drive
+    gapi.client.load('drive', 'v3', () => {
+      console.log('Google Drive API is ready');
     });
   }
 
@@ -271,15 +279,4 @@
       consent_url: fileUrls[6] || ''
     };
 
-    emailjs.send('service_ejbo31j', 'template_m0i7mf8', emailData)
-      .then(() => {
-        form.reset();
-        successMessage.classList.remove("hidden");
-      }, (error) => {
-        alert("Ошибка отправки: " + error.text);
-      });
-  });
-
-  // Загружаем Google API
-  loadGoogleAPI();
-})();
+    emailjs.send('service_ej
