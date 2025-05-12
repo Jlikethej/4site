@@ -2,7 +2,7 @@
   const html = `
     <div id="form-container">
       <h2>Подача заявления онлайн</h2>
-      <form id="application-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" enctype="multipart/form-data">
+      <form id="application-form">
         <input type="hidden" name="_subject" value="Новое заявление с сайта">
 
         <label for="lastname">Фамилия</label>
@@ -115,12 +115,25 @@
   `;
   document.head.appendChild(style);
 
+  // Инициализация EmailJS с твоим User ID
+  emailjs.init("service_ejbo31j");  // Замените на ваш User ID
+
   const form = document.getElementById("application-form");
   const successMessage = document.getElementById("form-success");
-  form.addEventListener("submit", function () {
-    setTimeout(() => {
-      form.reset();
-      successMessage.classList.remove("hidden");
-    }, 300);
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    // Сбор данных формы
+    const formData = new FormData(form);
+
+    // Отправка формы через EmailJS
+    emailjs.sendForm('service_ejbo31j', 'YOUR_TEMPLATE_ID', form)  // Замените на ваш Template ID
+      .then(() => {
+        form.reset();
+        successMessage.classList.remove("hidden");
+      }, (error) => {
+        alert("Ошибка отправки: " + error.text);
+      });
   });
 })();
