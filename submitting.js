@@ -146,7 +146,7 @@
     }
 
     #application-form button {
-      width: 200px;
+      width: 400px;
       padding: 12px;
       font-size: 18px;
       background-color: #007BFF;
