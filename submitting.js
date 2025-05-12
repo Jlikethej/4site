@@ -180,21 +180,98 @@
   document.head.appendChild(style);
 
   // Инициализация EmailJS
-  emailjs.init("_3kjXzbKVD1nlOt03"); // используй свой public key
+  emailjs.init("_3kjXzbKVD1nlOt03"); // используйте свой public key
 
   const form = document.getElementById("application-form");
   const successMessage = document.getElementById("form-success");
 
-  form.addEventListener("submit", function (event) {
+  // Авторизация Google API
+  let gapiLoaded = false;
+
+  function loadGoogleAPI() {
+    gapi.load('client:auth2', initGoogleAuth);
+  }
+
+  function initGoogleAuth() {
+    gapi.auth2.init({
+      client_id: '837486853816-preg9mlngaqoi5kp4mkafjv6shmle2ua.apps.googleusercontent.com  ',
+    }).then(() => {
+      gapiLoaded = true;
+    });
+  }
+
+  function uploadFileToGoogleDrive(file) {
+    return new Promise((resolve, reject) => {
+      const fileMetadata = {
+        'name': file.name,
+        'mimeType': file.type
+      };
+
+      const media = {
+        mimeType: file.type,
+        body: file
+      };
+
+      const request = gapi.client.drive.files.create({
+        resource: fileMetadata,
+        media: media,
+        fields: 'id'
+      });
+
+      request.execute(function(file) {
+        if (file.id) {
+          resolve(`https://drive.google.com/uc?id=${file.id}`);
+        } else {
+          reject('Ошибка загрузки файла на Google Drive');
+        }
+      });
+    });
+  }
+
+  form.addEventListener("submit", async function (event) {
     event.preventDefault();
 
+    if (!gapiLoaded) {
+      alert("Google API не загружен. Попробуйте снова.");
+      return;
+    }
+
     const formData = new FormData(form);
+    const files = [];
+    const fileUrls = [];
 
-    // Загружаем файлы на сервер или в облако, а затем передаем ссылки
-    // Пример: загрузка файлов на Google Drive или другой сервис (необходимо использовать API стороннего сервиса)
-    // После загрузки файлов передайте их ссылки в EmailJS через форму
+    for (let file of formData.values()) {
+      if (file instanceof File) {
+        files.push(file);
+      }
+    }
 
-    emailjs.sendForm('service_ejbo31j', 'template_m0i7mf8', formData)
+    // Загружаем файлы на Google Drive
+    for (const file of files) {
+      try {
+        const fileUrl = await uploadFileToGoogleDrive(file);
+        fileUrls.push(fileUrl);
+      } catch (error) {
+        alert(error);
+      }
+    }
+
+    // После загрузки файлов на Google Drive, передаем ссылки на них в EmailJS
+    const emailData = {
+      lastname: formData.get('lastname'),
+      firstname: formData.get('firstname'),
+      middlename: formData.get('middlename'),
+      email: formData.get('email'),
+      passport_url: fileUrls[0] || '',
+      education_url: fileUrls[1] || '',
+      photo_url: fileUrls[2] || '',
+      additional_url: fileUrls[3] || '',
+      application_statement_url: fileUrls[4] || '',
+      dormitory_statement_url: fileUrls[5] || '',
+      consent_url: fileUrls[6] || ''
+    };
+
+    emailjs.send('service_ejbo31j', 'template_m0i7mf8', emailData)
       .then(() => {
         form.reset();
         successMessage.classList.remove("hidden");
@@ -202,4 +279,7 @@
         alert("Ошибка отправки: " + error.text);
       });
   });
+
+  // Загружаем Google API
+  loadGoogleAPI();
 })();
