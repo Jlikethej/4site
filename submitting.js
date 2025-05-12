@@ -180,7 +180,7 @@
   document.head.appendChild(style);
 
   // EmailJS инициализация
-  emailjs.init("YOUR_USER_ID"); // замените на ваш PUBLIC KEY
+  emailjs.init("_3kjXzbKVD1nlOt03"); // замените на ваш PUBLIC KEY
 
   const form = document.getElementById("application-form");
   const successMessage = document.getElementById("form-success");
