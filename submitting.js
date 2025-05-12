@@ -245,22 +245,27 @@
     }
 
     const formData = new FormData(form);
-    const files = [];
-    const fileUrls = [];
+    const files = [
+      formData.get('passport'),
+      formData.get('education'),
+      formData.get('photo'),
+      formData.get('additional'),
+      formData.get('application_statement'),
+      formData.get('dormitory_statement'),
+      formData.get('consent')
+    ];
 
-    for (let file of formData.values()) {
-      if (file instanceof File) {
-        files.push(file);
-      }
-    }
+    const fileUrls = [];
 
     // Загружаем файлы на Google Drive
     for (const file of files) {
-      try {
-        const fileUrl = await uploadFileToGoogleDrive(file);
-        fileUrls.push(fileUrl);
-      } catch (error) {
-        alert(error);
+      if (file) {
+        try {
+          const fileUrl = await uploadFileToGoogleDrive(file);
+          fileUrls.push(fileUrl);
+        } catch (error) {
+          alert(error);
+        }
       }
     }
 
