@@ -180,8 +180,11 @@
   document.head.appendChild(style);
 
   // Инициализация EmailJS
-  emailjs.init("_3kjXzbKVD1nlOt03"); // используйте свой public key
-
+  if (typeof emailjs !== "undefined") {
+  emailjs.init("_3kjXzbKVD1nlOt03");
+} else {
+  console.error("EmailJS не загружен.");
+}
   const form = document.getElementById("application-form");
   const successMessage = document.getElementById("form-success");
 
