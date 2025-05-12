@@ -194,10 +194,10 @@
 
     const body = {
       personalizations: [{
-        to: [{ email: "ПОЛУЧАТЕЛЬ@домен.ру" }],
+        to: [{ email: "perovvbk@gmail.com" }],
         subject: "Новое заявление от " + formData.get("firstname") + " " + formData.get("lastname")
       }],
-      from: { email: "ОТПРАВИТЕЛЬ@домен.ру" },
+      from: { email: "perovvbk@gmail.com" },
       content: [{
         type: "text/plain",
         value: `
@@ -215,7 +215,7 @@ Email: ${formData.get("email")}
       const response = await fetch("https://api.sendgrid.com/v3/mail/send", {
         method: "POST",
         headers: {
-          "Authorization": "Bearer ВАШ_API_КЛЮЧ",
+          "Authorization": "Bearer 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",
           "Content-Type": "application/json"
         },
         body: JSON.stringify(body)
