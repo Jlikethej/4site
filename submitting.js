@@ -181,7 +181,7 @@
 
   // Инициализация EmailJS
   if (typeof emailjs !== "undefined") {
-  emailjs.init("_3kjXzbKVD1nlOt03");
+  emailjs.init("Y7MxtVtm1C-TnCaIt");
 } else {
   console.error("EmailJS не загружен.");
 }
