@@ -44,10 +44,9 @@
         <label for="dormitory_statement">Скан заявления на общежитие</label>
         <input type="file" id="dormitory_statement" name="dormitory_statement" accept=".pdf,.jpg,.jpeg,.png" required>
 
-        <label>
-          <input type="checkbox" name="agree" required>
-          Согласие на обработку персональных данных
-        </label>
+        <!-- Согласие на обработку данных как файл -->
+        <label for="consent">Скан согласия на обработку персональных данных</label>
+        <input type="file" id="consent" name="consent" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
 
         <button type="submit">Отправить заявление</button>
       </form>
