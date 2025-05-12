@@ -1,5 +1,5 @@
 (function () {
-  const html = 
+  const html = `
     <div id="form-container">
       <h2>Подача заявления онлайн</h2>
       <form id="application-form">
@@ -14,8 +14,6 @@
           </div>
         </div>
 
-        <!-- Оставь остальные поля формы без изменений -->
-        
         <div class="row">
           <div class="form-group">
             <label for="passport">Скан паспорта</label>
@@ -27,15 +25,13 @@
           </div>
         </div>
 
-        <!-- Поля для остальных файлов остаются такими же -->
-
         <div class="submit-row">
           <button type="submit">Отправить заявление</button>
         </div>
       </form>
       <div id="form-success" class="hidden">Заявление успешно отправлено!</div>
     </div>
-  ;
+  `;
 
   const container = document.createElement("div");
   container.innerHTML = html;
@@ -47,13 +43,13 @@
   }
 
   const style = document.createElement("style");
-  style.textContent = 
-    /* Здесь стили остаются без изменений */
-  ;
+  style.textContent = `
+    /* Добавьте свои стили для формы */
+  `;
   document.head.appendChild(style);
 
   // Инициализация EmailJS
-  emailjs.init("_3kjXzbKVD1nlOt03"); // используй свой public key
+  emailjs.init("_3kjXzbKVD1nlOt03"); // Используй свой public key
 
   const form = document.getElementById("application-form");
   const successMessage = document.getElementById("form-success");
@@ -67,7 +63,7 @@
 
   function initGoogleAuth() {
     gapi.auth2.init({
-      client_id: 'YOUR_GOOGLE_CLIENT_ID',
+      client_id: '837486853816-preg9mlngaqoi5kp4mkafjv6shmle2ua.apps.googleusercontent.com',
     }).then(() => {
       gapiLoaded = true;
     });
@@ -93,7 +89,7 @@
 
       request.execute(function(file) {
         if (file.id) {
-          resolve(https://drive.google.com/uc?id=${file.id});
+          resolve(`https://drive.google.com/uc?id=${file.id}`);
         } else {
           reject('Ошибка загрузки файла на Google Drive');
         }
@@ -129,15 +125,16 @@
       }
     }
 
-    // После загрузки файлов на Google Drive, передаем ссылки на них в EmailJS
+    // Подготовка данных для EmailJS
     const emailData = {
       lastname: formData.get('lastname'),
       firstname: formData.get('firstname'),
       passport_url: fileUrls[0] || '',
       education_url: fileUrls[1] || '',
-      // Добавь ссылки для остальных файлов по аналогии
+      // Добавьте дополнительные ссылки по аналогии для других файлов
     };
 
+    // Отправка данных через EmailJS
     emailjs.send('service_ejbo31j', 'template_m0i7mf8', emailData)
       .then(() => {
         form.reset();
