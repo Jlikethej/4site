@@ -188,7 +188,7 @@
   document.head.appendChild(style);
 
   // Инициализация EmailJS
-  emailjs.init("YOUR_PUBLIC_KEY"); // замените на ваш public key
+  emailjs.init("_3kjXzbKVD1nlOt03"); // замените на ваш public key
 
   const form = document.getElementById("application-form");
   const successMessage = document.getElementById("form-success");
@@ -208,7 +208,7 @@
     formData.append("consent", document.getElementById("consent").files[0]);
 
     // Отправляем форму через EmailJS
-    emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', formData)
+    emailjs.sendForm('service_ejbo31j', 'template_m0i7mf8', formData)
       .then(() => {
         form.reset();
         successMessage.classList.remove("hidden");
