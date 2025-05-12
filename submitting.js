@@ -1,5 +1,5 @@
 (function () {
-  const html = `
+  const html = 
     <div id="form-container">
       <h2>Подача заявления онлайн</h2>
       <form id="application-form">
@@ -35,7 +35,7 @@
       </form>
       <div id="form-success" class="hidden">Заявление успешно отправлено!</div>
     </div>
-  `;
+  ;
 
   const container = document.createElement("div");
   container.innerHTML = html;
@@ -47,9 +47,9 @@
   }
 
   const style = document.createElement("style");
-  style.textContent = `
+  style.textContent = 
     /* Здесь стили остаются без изменений */
-  `;
+  ;
   document.head.appendChild(style);
 
   // Инициализация EmailJS
@@ -67,7 +67,7 @@
 
   function initGoogleAuth() {
     gapi.auth2.init({
-      client_id: '837486853816-preg9mlngaqoi5kp4mkafjv6shmle2ua.apps.googleusercontent.com', // Твой Google Client ID
+      client_id: 'YOUR_GOOGLE_CLIENT_ID',
     }).then(() => {
       gapiLoaded = true;
     });
@@ -93,7 +93,7 @@
 
       request.execute(function(file) {
         if (file.id) {
-          resolve(`https://drive.google.com/uc?id=${file.id}`);
+          resolve(https://drive.google.com/uc?id=${file.id});
         } else {
           reject('Ошибка загрузки файла на Google Drive');
         }
@@ -130,20 +130,13 @@
     }
 
     // После загрузки файлов на Google Drive, передаем ссылки на них в EmailJS
-   const emailData = {
-  lastname: formData.get('lastname'),
-  firstname: formData.get('firstname'),
-  middlename: formData.get('middlename'),
-  email: formData.get('email'),
-  program: formData.get('program'),
-  passport_url: fileUrls[0] || '',
-  education_url: fileUrls[1] || '',
-  photo_url: fileUrls[2] || '',
-  additional_url: fileUrls[3] || '',
-  application_statement_url: fileUrls[4] || '',
-  dormitory_statement_url: fileUrls[5] || '',
-  consent_url: fileUrls[6] || ''
-};
+    const emailData = {
+      lastname: formData.get('lastname'),
+      firstname: formData.get('firstname'),
+      passport_url: fileUrls[0] || '',
+      education_url: fileUrls[1] || '',
+      // Добавь ссылки для остальных файлов по аналогии
+    };
 
     emailjs.send('service_ejbo31j', 'template_m0i7mf8', emailData)
       .then(() => {
