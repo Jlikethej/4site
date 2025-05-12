@@ -215,7 +215,7 @@ Email: ${formData.get("email")}
     const response = await fetch("https://cors-anywhere.herokuapp.com/https://api.sendgrid.com/v3/mail/send", {
       method: "POST",
       headers: {
-        "Authorization": "Bearer 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",
+        "Authorization": "Bearer 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",
         "Content-Type": "application/json"
       },
         body: JSON.stringify(body)
