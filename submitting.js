@@ -1,3 +1,4 @@
+<script>
 (function () {
   const html = `
     <div id="form-container">
@@ -5,7 +6,7 @@
       <form id="application-form">
         <input type="hidden" name="_subject" value="Новое заявление с сайта">
 
-        <div class="form-row">
+        <div class="row">
           <div class="form-group">
             <label for="lastname">Фамилия</label>
             <input type="text" id="lastname" name="lastname" required>
@@ -16,7 +17,7 @@
           </div>
         </div>
 
-        <div class="form-row">
+        <div class="row">
           <div class="form-group">
             <label for="middlename">Отчество</label>
             <input type="text" id="middlename" name="middlename">
@@ -27,8 +28,8 @@
           </div>
         </div>
 
-        <div class="form-row">
-          <div class="form-group full-width">
+        <div class="row">
+          <div class="form-group" style="width: 100%">
             <label for="program">Выбор специальности</label>
             <select id="program" name="program" required>
               <option value="">-- выберите специальность --</option>
@@ -39,43 +40,47 @@
           </div>
         </div>
 
-        <div class="form-row">
+        <!-- Первая строка загрузки -->
+        <div class="row">
           <div class="form-group">
             <label for="passport">Скан паспорта</label>
-            <input type="file" id="passport" name="passport" required>
+            <input type="file" id="passport" name="passport" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
           </div>
           <div class="form-group">
             <label for="education">Скан документа об образовании</label>
-            <input type="file" id="education" name="education" required>
+            <input type="file" id="education" name="education" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
           </div>
         </div>
 
-        <div class="form-row">
+        <!-- Вторая строка загрузки -->
+        <div class="row">
           <div class="form-group">
             <label for="photo">Фотография 3x4</label>
-            <input type="file" id="photo" name="photo" required>
+            <input type="file" id="photo" name="photo" accept=".jpg,.jpeg,.png" required>
           </div>
           <div class="form-group">
             <label for="additional">Прочие документы (СНИЛС и т.д.)</label>
-            <input type="file" id="additional" name="additional" multiple>
+            <input type="file" id="additional" name="additional" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
           </div>
         </div>
 
-        <div class="form-row">
+        <!-- Третья строка загрузки -->
+        <div class="row">
           <div class="form-group">
             <label for="application_statement">Скан заявления</label>
-            <input type="file" id="application_statement" name="application_statement" required>
+            <input type="file" id="application_statement" name="application_statement" accept=".pdf,.jpg,.jpeg,.png" required>
           </div>
           <div class="form-group">
             <label for="dormitory_statement">Скан заявления на общежитие</label>
-            <input type="file" id="dormitory_statement" name="dormitory_statement" required>
+            <input type="file" id="dormitory_statement" name="dormitory_statement" accept=".pdf,.jpg,.jpeg,.png" required>
           </div>
         </div>
 
-        <div class="form-row">
-          <div class="form-group full-width">
+        <!-- Четвёртая строка -->
+        <div class="row">
+          <div class="form-group" style="width: 100%">
             <label for="consent">Скан согласия на обработку персональных данных</label>
-            <input type="file" id="consent" name="consent" required>
+            <input type="file" id="consent" name="consent" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
           </div>
         </div>
 
@@ -88,6 +93,7 @@
   const container = document.createElement("div");
   container.innerHTML = html;
 
+  // Вставляем форму в .constructor__work-zone
   const workZone = document.querySelector('.constructor__work-zone');
   if (workZone) {
     workZone.appendChild(container);
@@ -109,10 +115,10 @@
 
     #form-container h2 {
       text-align: center;
-      margin-bottom: 25px;
+      margin-bottom: 30px;
     }
 
-    .form-row {
+    .row {
       display: flex;
       gap: 20px;
       margin-bottom: 20px;
@@ -120,29 +126,27 @@
     }
 
     .form-group {
-      flex: 1 1 48%;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .form-group.full-width {
-      flex: 1 1 100%;
+      flex: 1;
+      min-width: 0;
     }
 
     .form-group label {
+      display: block;
       font-weight: bold;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
     }
 
     .form-group input,
     .form-group select {
-      padding: 10px;
-      font-size: 16px;
+      width: 100%;
+      padding: 12px;
       border-radius: 6px;
       border: 1px solid #ccc;
+      font-size: 16px;
+      box-sizing: border-box;
     }
 
-     #application-form button {
+    #application-form button {
       width: 200px;
       padding: 12px;
       font-size: 18px;
@@ -153,16 +157,15 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
       display: block;
-      margin: 30px auto 0; /* центрирование */
+      margin: 30px auto 0;
     }
-
 
     #application-form button:hover {
       background-color: #0056b3;
     }
 
     #form-success {
-      margin-top: 20px;
+      margin-top: 30px;
       padding: 15px;
       background-color: #d4edda;
       color: #155724;
@@ -177,7 +180,8 @@
   `;
   document.head.appendChild(style);
 
-  emailjs.init("YOUR_USER_ID"); // ← сюда вставь свой Public Key от EmailJS
+  // EmailJS инициализация
+  emailjs.init("YOUR_USER_ID"); // замените на ваш PUBLIC KEY
 
   const form = document.getElementById("application-form");
   const successMessage = document.getElementById("form-success");
