@@ -3,6 +3,7 @@
     <div id="form-container">
       <h2>Подача заявления онлайн</h2>
       <form id="application-form">
+        <!-- Поля формы -->
         <div class="row">
           <div class="form-group">
             <label for="lastname">Фамилия</label>
@@ -13,7 +14,6 @@
             <input type="text" id="firstname" name="firstname" required>
           </div>
         </div>
-
         <div class="row">
           <div class="form-group">
             <label for="middlename">Отчество</label>
@@ -24,7 +24,6 @@
             <input type="email" id="email" name="email" required>
           </div>
         </div>
-
         <div class="row">
           <div class="form-group" style="width: 100%">
             <label for="program">Выбор специальности</label>
@@ -36,47 +35,43 @@
             </select>
           </div>
         </div>
-
+        <!-- Файлы -->
         <div class="row">
           <div class="form-group">
             <label for="passport">Скан паспорта</label>
-            <input type="file" id="passport" name="passport" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+            <input type="file" id="passport" name="passport">
           </div>
           <div class="form-group">
             <label for="education">Документ об образовании</label>
-            <input type="file" id="education" name="education" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+            <input type="file" id="education" name="education">
           </div>
         </div>
-
         <div class="row">
           <div class="form-group">
             <label for="photo">Фотография 3x4</label>
-            <input type="file" id="photo" name="photo" accept=".jpg,.jpeg,.png">
+            <input type="file" id="photo" name="photo">
           </div>
           <div class="form-group">
             <label for="additional">Прочие документы</label>
-            <input type="file" id="additional" name="additional" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+            <input type="file" id="additional" name="additional" multiple>
           </div>
         </div>
-
         <div class="row">
           <div class="form-group">
             <label for="application_statement">Скан заявления</label>
-            <input type="file" id="application_statement" name="application_statement" accept=".pdf,.jpg,.jpeg,.png">
+            <input type="file" id="application_statement" name="application_statement">
           </div>
           <div class="form-group">
             <label for="dormitory_statement">Скан заявления на общежитие</label>
-            <input type="file" id="dormitory_statement" name="dormitory_statement" accept=".pdf,.jpg,.jpeg,.png">
+            <input type="file" id="dormitory_statement" name="dormitory_statement">
           </div>
         </div>
-
         <div class="row">
           <div class="form-group" style="width: 100%">
             <label for="consent">Скан согласия на обработку персональных данных</label>
-            <input type="file" id="consent" name="consent" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+            <input type="file" id="consent" name="consent">
           </div>
         </div>
-
         <div class="submit-row">
           <button type="submit">Отправить заявление</button>
         </div>
@@ -90,8 +85,6 @@
   const workZone = document.querySelector('.constructor__work-zone');
   if (workZone) {
     workZone.appendChild(container);
-  } else {
-    console.error('Контейнер с классом constructor__work-zone не найден!');
   }
 
   const style = document.createElement("style");
@@ -104,11 +97,6 @@
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
       font-family: sans-serif;
-    }
-
-    #form-container h2 {
-      text-align: center;
-      margin-bottom: 20px;
     }
 
     .row {
@@ -124,22 +112,11 @@
       flex-direction: column;
     }
 
-    .form-group input,
-    .form-group select {
-      width: 100%;
+    .form-group input, .form-group select {
       padding: 12px;
       font-size: 16px;
-      margin-top: 5px;
       border-radius: 6px;
       border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
-
-    .file-name {
-      margin-top: 5px;
-      font-size: 14px;
-      color: #555;
-      font-style: italic;
     }
 
     .submit-row {
@@ -147,19 +124,17 @@
       justify-content: center;
     }
 
-    #application-form button {
-      width: 400px;
-      padding: 12px;
+    button {
+      padding: 12px 20px;
       font-size: 16px;
       border-radius: 6px;
       border: none;
       background-color: #007BFF;
       color: white;
       cursor: pointer;
-      transition: background-color 0.3s ease;
     }
 
-    #application-form button:hover {
+    button:hover {
       background-color: #0056b3;
     }
 
@@ -168,135 +143,102 @@
       padding: 15px;
       background-color: #d4edda;
       color: #155724;
-      border: 1px solid #c3e6cb;
       border-radius: 6px;
       text-align: center;
     }
 
-    .hidden {
-      display: none;
-    }
+    .hidden { display: none; }
   `;
   document.head.appendChild(style);
 
-  // Инициализация EmailJS
-  if (typeof emailjs !== "undefined") {
-  emailjs.init("Y7MxtVtm1C-TnCaIt");
-} else {
-  console.error("EmailJS не загружен.");
-}
   const form = document.getElementById("application-form");
   const successMessage = document.getElementById("form-success");
 
-  // Авторизация Google API
-  let gapiLoaded = false;
-
-  function loadGoogleAPI() {
-    gapi.load('client:auth2', initGoogleAuth);
-  }
-
-  function initGoogleAuth() {
-    gapi.auth2.init({
-      client_id: '837486853816-preg9mlngaqoi5kp4mkafjv6shmle2ua.apps.googleusercontent.com', // client_id для OAuth
-    }).then(() => {
-      gapiLoaded = true;
-    });
-  }
-
-  // Инициализация Google Drive API с ключом API
-  function initGoogleDriveAPI() {
-    gapi.client.setApiKey('AIzaSyDlX6SI9_vsqnWlmYORSua0Cv_8dHSyPUw'); // Ключ API для Google Drive
-    gapi.client.load('drive', 'v3', () => {
-      console.log('Google Drive API is ready');
-    });
-  }
-
-  function uploadFileToGoogleDrive(file) {
-    return new Promise((resolve, reject) => {
-      const fileMetadata = {
-        'name': file.name,
-        'mimeType': file.type
-      };
-
-      const media = {
-        mimeType: file.type,
-        body: file
-      };
-
-      const request = gapi.client.drive.files.create({
-        resource: fileMetadata,
-        media: media,
-        fields: 'id'
-      });
-
-      request.execute(function(file) {
-        if (file.id) {
-          resolve(`https://drive.google.com/uc?id=${file.id}`);
-        } else {
-          reject('Ошибка загрузки файла на Google Drive');
-        }
-      });
-    });
-  }
-
-  form.addEventListener("submit", async function (event) {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
-
-    if (!gapiLoaded) {
-      alert("Google API не загружен. Попробуйте снова.");
-      return;
-    }
-
     const formData = new FormData(form);
-    const files = [
-      formData.get('passport'),
-      formData.get('education'),
-      formData.get('photo'),
-      formData.get('additional'),
-      formData.get('application_statement'),
-      formData.get('dormitory_statement'),
-      formData.get('consent')
+    const attachments = [];
+
+    const allFiles = [
+      'passport', 'education', 'photo',
+      'application_statement', 'dormitory_statement', 'consent'
     ];
 
-    const fileUrls = [];
-
-    // Загружаем файлы на Google Drive
-    for (const file of files) {
-      if (file) {
-        try {
-          const fileUrl = await uploadFileToGoogleDrive(file);
-          fileUrls.push(fileUrl);
-        } catch (error) {
-          alert(error);
-        }
+    // Обработка одиночных файлов
+    for (let name of allFiles) {
+      const file = formData.get(name);
+      if (file && file.size > 0) {
+        const base64 = await toBase64(file);
+        attachments.push({
+          content: base64,
+          filename: file.name,
+          type: file.type,
+          disposition: "attachment"
+        });
       }
     }
 
-    // После загрузки файлов на Google Drive, передаем ссылки на них в EmailJS
-    const emailData = {
-      lastname: formData.get('lastname'),
-      firstname: formData.get('firstname'),
-      middlename: formData.get('middlename'),
-      email: formData.get('email'),
-      passport_url: fileUrls[0] || '',
-      education_url: fileUrls[1] || '',
-      photo_url: fileUrls[2] || '',
-      additional_url: fileUrls[3] || '',
-      application_statement_url: fileUrls[4] || '',
-      dormitory_statement_url: fileUrls[5] || '',
-      consent_url: fileUrls[6] || ''
+    // Прочие документы (множественные)
+    const additionalFiles = formData.getAll('additional');
+    for (let file of additionalFiles) {
+      if (file && file.size > 0) {
+        const base64 = await toBase64(file);
+        attachments.push({
+          content: base64,
+          filename: file.name,
+          type: file.type,
+          disposition: "attachment"
+        });
+      }
+    }
+
+    const body = {
+      personalizations: [{
+        to: [{ email: "ПОЛУЧАТЕЛЬ@домен.ру" }],
+        subject: "Новое заявление от " + formData.get("firstname") + " " + formData.get("lastname")
+      }],
+      from: { email: "ОТПРАВИТЕЛЬ@домен.ру" },
+      content: [{
+        type: "text/plain",
+        value: `
+Фамилия: ${formData.get("lastname")}
+Имя: ${formData.get("firstname")}
+Отчество: ${formData.get("middlename")}
+Email: ${formData.get("email")}
+Специальность: ${formData.get("program")}
+        `.trim()
+      }],
+      attachments: attachments
     };
 
-    emailjs.send('service_ejbo31j', 'template_m0i7mf8', emailData)
-      .then(() => {
+    try {
+      const response = await fetch("https://api.sendgrid.com/v3/mail/send", {
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer ВАШ_API_КЛЮЧ",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+      });
+
+      if (response.ok) {
         form.reset();
         successMessage.classList.remove("hidden");
-      }, (error) => {
-        alert("Ошибка отправки: " + error.text);
-      });
+      } else {
+        alert("Ошибка отправки: " + response.statusText);
+      }
+    } catch (error) {
+      alert("Ошибка: " + error.message);
+    }
   });
 
-  // Загружаем Google API
-  loadGoogleAPI();
-  initGoogleDriveAPI();
+  function toBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result.split(",")[1]);
+      reader.onerror = error => reject(error);
+    });
+  }
 })();
+
