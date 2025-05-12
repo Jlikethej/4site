@@ -38,49 +38,63 @@
         </div>
 
         <div class="row">
-          <div class="form-group">
+          <div class="form-group file-input-wrapper">
             <label for="passport">Скан паспорта</label>
-            <input type="file" id="passport" name="passport" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
-            <span class="file-name">Файл не выбран</span>
+            <div class="custom-file-input">
+              <span>Выберите файл</span>
+              <input type="file" id="passport" name="passport" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
+            </div>
           </div>
-          <div class="form-group">
+          <div class="form-group file-input-wrapper">
             <label for="education">Документ об образовании</label>
-            <input type="file" id="education" name="education" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
-            <span class="file-name">Файл не выбран</span>
+            <div class="custom-file-input">
+              <span>Выберите файл</span>
+              <input type="file" id="education" name="education" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
+            </div>
           </div>
         </div>
 
         <div class="row">
-          <div class="form-group">
+          <div class="form-group file-input-wrapper">
             <label for="photo">Фотография 3x4</label>
-            <input type="file" id="photo" name="photo" accept=".jpg,.jpeg,.png" required>
-            <span class="file-name">Файл не выбран</span>
+            <div class="custom-file-input">
+              <span>Выберите файл</span>
+              <input type="file" id="photo" name="photo" accept=".jpg,.jpeg,.png" required>
+            </div>
           </div>
-          <div class="form-group">
+          <div class="form-group file-input-wrapper">
             <label for="additional">Прочие документы</label>
-            <input type="file" id="additional" name="additional" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
-            <span class="file-name">Файл не выбран</span>
+            <div class="custom-file-input">
+              <span>Выберите файл</span>
+              <input type="file" id="additional" name="additional" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+            </div>
           </div>
         </div>
 
         <div class="row">
-          <div class="form-group">
+          <div class="form-group file-input-wrapper">
             <label for="application_statement">Скан заявления</label>
-            <input type="file" id="application_statement" name="application_statement" accept=".pdf,.jpg,.jpeg,.png" required>
-            <span class="file-name">Файл не выбран</span>
+            <div class="custom-file-input">
+              <span>Выберите файл</span>
+              <input type="file" id="application_statement" name="application_statement" accept=".pdf,.jpg,.jpeg,.png" required>
+            </div>
           </div>
-          <div class="form-group">
+          <div class="form-group file-input-wrapper">
             <label for="dormitory_statement">Скан заявления на общежитие</label>
-            <input type="file" id="dormitory_statement" name="dormitory_statement" accept=".pdf,.jpg,.jpeg,.png" required>
-            <span class="file-name">Файл не выбран</span>
+            <div class="custom-file-input">
+              <span>Выберите файл</span>
+              <input type="file" id="dormitory_statement" name="dormitory_statement" accept=".pdf,.jpg,.jpeg,.png" required>
+            </div>
           </div>
         </div>
 
         <div class="row">
-          <div class="form-group" style="width: 100%">
+          <div class="form-group file-input-wrapper" style="width: 100%">
             <label for="consent">Скан согласия на обработку персональных данных</label>
-            <input type="file" id="consent" name="consent" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
-            <span class="file-name">Файл не выбран</span>
+            <div class="custom-file-input">
+              <span>Выберите файл</span>
+              <input type="file" id="consent" name="consent" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
+            </div>
           </div>
         </div>
 
@@ -132,22 +146,39 @@
       flex-direction: column;
     }
 
-    .form-group input,
-    .form-group select {
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      margin-top: 5px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
+    .file-input-wrapper {
+      position: relative;
     }
 
-    .file-name {
-      margin-top: 5px;
-      font-size: 14px;
-      color: #555;
-      font-style: italic;
+    .custom-file-input {
+      position: relative;
+      display: flex;
+      align-items: center;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: white;
+      padding: 10px 12px;
+      font-size: 16px;
+      cursor: pointer;
+      overflow: hidden;
+      height: 45px;
+    }
+
+    .custom-file-input input[type="file"] {
+      position: absolute;
+      opacity: 0;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .custom-file-input span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
     }
 
     .submit-row {
@@ -156,7 +187,7 @@
     }
 
     #application-form button {
-      width: 200px;
+      width: 400px;
       padding: 12px;
       font-size: 16px;
       border-radius: 6px;
@@ -188,7 +219,7 @@
   document.head.appendChild(style);
 
   // Инициализация EmailJS
-  emailjs.init("YOUR_PUBLIC_KEY"); // замените на ваш public key
+  emailjs.init("_3kjXzbKVD1nlOt03"); // замените на ваш public key
 
   const form = document.getElementById("application-form");
   const successMessage = document.getElementById("form-success");
@@ -205,16 +236,16 @@
       });
   });
 
-  // Обновление имени выбранного файла
-  form.querySelectorAll('input[type="file"]').forEach(input => {
-    const fileNameSpan = input.nextElementSibling;
+  // Обновление имени выбранного файла в span внутри поля
+  form.querySelectorAll('.custom-file-input input[type="file"]').forEach(input => {
+    const span = input.previousElementSibling;
     input.addEventListener('change', () => {
       if (input.files.length > 0) {
-        fileNameSpan.textContent = input.files.length === 1
+        span.textContent = input.files.length === 1
           ? input.files[0].name
           : `${input.files.length} файла(-ов) выбрано`;
       } else {
-        fileNameSpan.textContent = "Файл не выбран";
+        span.textContent = "Выберите файл";
       }
     });
   });
