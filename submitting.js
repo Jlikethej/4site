@@ -26,16 +26,16 @@
         </select>
 
         <label for="passport">Паспорт (PDF/JPG)</label>
-        <input type="file" id="passport" name="passport" accept=".pdf,.jpg,.jpeg,.png" required>
+        <input type="file" id="passport" name="passport" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
 
         <label for="education">Документ об образовании</label>
-        <input type="file" id="education" name="education" accept=".pdf,.jpg,.jpeg,.png" required>
+        <input type="file" id="education" name="education" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
 
         <label for="photo">Фотография 3x4</label>
         <input type="file" id="photo" name="photo" accept=".jpg,.jpeg,.png" required>
 
         <label for="additional">Прочие документы (по желанию)</label>
-        <input type="file" id="additional" name="additional" multiple accept=".pdf,.jpg,.jpeg,.png">
+        <input type="file" id="additional" name="additional" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
 
         <!-- Новые поля -->
         <label for="application_statement">Скан заявления</label>
