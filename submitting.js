@@ -279,4 +279,16 @@
       consent_url: fileUrls[6] || ''
     };
 
-    emailjs.send('service_ej
+    emailjs.send('service_ejbo31j', 'template_m0i7mf8', emailData)
+      .then(() => {
+        form.reset();
+        successMessage.classList.remove("hidden");
+      }, (error) => {
+        alert("Ошибка отправки: " + error.text);
+      });
+  });
+
+  // Загружаем Google API
+  loadGoogleAPI();
+  initGoogleDriveAPI();
+})();
