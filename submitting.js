@@ -115,7 +115,7 @@
     .form-row select,
     #form-container button {
       width: 48%;
-      padding: 10px;
+      padding: 12px;
       margin-top: 5px;
       border-radius: 6px;
       border: 1px solid #ccc;
@@ -141,7 +141,7 @@
 
     .file-row input {
       width: 48%;
-      padding: 10px;
+      padding: 12px;
       margin-top: 5px;
       border-radius: 6px;
       border: 1px solid #ccc;
