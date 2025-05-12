@@ -50,7 +50,14 @@
 
   const container = document.createElement("div");
   container.innerHTML = html;
-  document.body.appendChild(container);
+
+  // Ищем контейнер с классом 'constructor__work-zone' и добавляем форму туда
+  const workZone = document.querySelector('.constructor__work-zone');
+  if (workZone) {
+    workZone.appendChild(container);
+  } else {
+    console.error('Контейнер с классом constructor__work-zone не найден!');
+  }
 
   const style = document.createElement("style");
   style.textContent = `
@@ -116,7 +123,7 @@
   document.head.appendChild(style);
 
   // Инициализация EmailJS с твоим User ID
-  emailjs.init("_3kjXzbKVD1nlOt03");  // Замените на ваш User ID
+  emailjs.init("YOUR_USER_ID");
 
   const form = document.getElementById("application-form");
   const successMessage = document.getElementById("form-success");
@@ -124,11 +131,10 @@
   form.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    // Сбор данных формы
     const formData = new FormData(form);
 
     // Отправка формы через EmailJS
-    emailjs.sendForm('service_ejbo31j', 'YOUR_TEMPLATE_ID', form)  // Замените на ваш Template ID
+    emailjs.sendForm('service_ejbo31j', 'YOUR_TEMPLATE_ID', form)
       .then(() => {
         form.reset();
         successMessage.classList.remove("hidden");
