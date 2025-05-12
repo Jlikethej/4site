@@ -116,7 +116,7 @@
   document.head.appendChild(style);
 
   // Инициализация EmailJS с твоим User ID
-  emailjs.init("service_ejbo31j");  // Замените на ваш User ID
+  emailjs.init("_3kjXzbKVD1nlOt03");  // Замените на ваш User ID
 
   const form = document.getElementById("application-form");
   const successMessage = document.getElementById("form-success");
