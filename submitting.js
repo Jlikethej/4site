@@ -5,48 +5,58 @@
       <form id="application-form">
         <input type="hidden" name="_subject" value="Новое заявление с сайта">
 
-        <label for="lastname">Фамилия</label>
-        <input type="text" id="lastname" name="lastname" required>
+        <div class="form-row">
+          <label for="lastname">Фамилия</label>
+          <input type="text" id="lastname" name="lastname" required>
 
-        <label for="firstname">Имя</label>
-        <input type="text" id="firstname" name="firstname" required>
+          <label for="firstname">Имя</label>
+          <input type="text" id="firstname" name="firstname" required>
+        </div>
 
-        <label for="middlename">Отчество</label>
-        <input type="text" id="middlename" name="middlename">
+        <div class="form-row">
+          <label for="middlename">Отчество</label>
+          <input type="text" id="middlename" name="middlename">
 
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
 
-        <label for="program">Выбор специальности</label>
-        <select id="program" name="program" required>
-          <option value="">-- выберите специальность --</option>
-          <option value="08.02.04">08.02.04 Водоснабжение и водоотведение</option>
-          <option value="38.02.01">38.02.01 Экономика и бухгалтерский учет</option>
-          <option value="13.02.11">13.02.11 Техническая эксплуатация и обслуживание электрического и электромеханического оборудования</option>
-        </select>
+        <div class="form-row">
+          <label for="program">Выбор специальности</label>
+          <select id="program" name="program" required>
+            <option value="">-- выберите специальность --</option>
+            <option value="08.02.04">08.02.04 Водоснабжение и водоотведение</option>
+            <option value="38.02.01">38.02.01 Экономика и бухгалтерский учет</option>
+            <option value="13.02.11">13.02.11 Техническая эксплуатация и обслуживание электрического и электромеханического оборудования</option>
+          </select>
+        </div>
 
-        <label for="passport">Скан паспорта</label>
-        <input type="file" id="passport" name="passport" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
+        <!-- Группа для файлов -->
+        <div class="form-row file-group">
+          <label for="passport">Скан паспорта</label>
+          <input type="file" id="passport" name="passport" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
 
-        <label for="education">скан документа об образовании</label>
-        <input type="file" id="education" name="education" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
+          <label for="education">Скан документа об образовании</label>
+          <input type="file" id="education" name="education" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
 
-        <label for="photo">Фотография 3x4</label>
-        <input type="file" id="photo" name="photo" accept=".jpg,.jpeg,.png" required>
+          <label for="photo">Фотография 3x4</label>
+          <input type="file" id="photo" name="photo" accept=".jpg,.jpeg,.png" required>
 
-        <label for="additional">Прочие документы (СНИЛС и т.д.)</label>
-        <input type="file" id="additional" name="additional" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+          <label for="additional">Прочие документы (СНИЛС и т.д.)</label>
+          <input type="file" id="additional" name="additional" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+        </div>
 
         <!-- Новые поля -->
-        <label for="application_statement">Скан заявления</label>
-        <input type="file" id="application_statement" name="application_statement" accept=".pdf,.jpg,.jpeg,.png" required>
+        <div class="form-row file-group">
+          <label for="application_statement">Скан заявления</label>
+          <input type="file" id="application_statement" name="application_statement" accept=".pdf,.jpg,.jpeg,.png" required>
 
-        <label for="dormitory_statement">Скан заявления на общежитие</label>
-        <input type="file" id="dormitory_statement" name="dormitory_statement" accept=".pdf,.jpg,.jpeg,.png" required>
+          <label for="dormitory_statement">Скан заявления на общежитие</label>
+          <input type="file" id="dormitory_statement" name="dormitory_statement" accept=".pdf,.jpg,.jpeg,.png" required>
 
-        <!-- Согласие на обработку данных как файл -->
-        <label for="consent">Скан согласия на обработку персональных данных</label>
-        <input type="file" id="consent" name="consent" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
+          <label for="consent">Скан согласия на обработку персональных данных</label>
+          <input type="file" id="consent" name="consent" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
+        </div>
 
         <button type="submit">Отправить заявление</button>
       </form>
@@ -68,7 +78,7 @@
   const style = document.createElement("style");
   style.textContent = `
     #form-container {
-      max-width: 600px;
+      max-width: 800px;
       margin: 40px auto;
       padding: 20px;
       background: #fff;
@@ -82,21 +92,41 @@
       margin-bottom: 20px;
     }
 
-    #form-container label {
+    .form-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-top: 15px;
+    }
+
+    .form-row label {
       display: block;
-      margin-top: 10px;
       font-weight: bold;
     }
 
-    #form-container input,
-    #form-container select,
+    .form-row input,
+    .form-row select,
     #form-container button {
-      width: 100%;
+      width: 48%;
       padding: 10px;
       margin-top: 5px;
       border-radius: 6px;
       border: 1px solid #ccc;
       box-sizing: border-box;
+    }
+
+    .file-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .file-group label {
+      margin-top: 10px;
+    }
+
+    .file-group input {
+      width: 100%;
+      margin-top: 5px;
     }
 
     #form-container button {
