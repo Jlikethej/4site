@@ -25,16 +25,16 @@
           <option value="13.02.11">13.02.11 Техническая эксплуатация и обслуживание электрического и электромеханического оборудования</option>
         </select>
 
-        <label for="passport">Паспорт (PDF/JPG)</label>
+        <label for="passport">Скан паспорта</label>
         <input type="file" id="passport" name="passport" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
 
-        <label for="education">Документ об образовании</label>
+        <label for="education">скан документа об образовании</label>
         <input type="file" id="education" name="education" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
 
         <label for="photo">Фотография 3x4</label>
         <input type="file" id="photo" name="photo" accept=".jpg,.jpeg,.png" required>
 
-        <label for="additional">Прочие документы (по желанию)</label>
+        <label for="additional">Прочие документы (СНИЛС и т.д.)</label>
         <input type="file" id="additional" name="additional" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
 
         <!-- Новые поля -->
