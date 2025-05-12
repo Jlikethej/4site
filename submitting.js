@@ -130,13 +130,20 @@
     }
 
     // После загрузки файлов на Google Drive, передаем ссылки на них в EmailJS
-    const emailData = {
-      lastname: formData.get('lastname'),
-      firstname: formData.get('firstname'),
-      passport_url: fileUrls[0] || '',
-      education_url: fileUrls[1] || '',
-      // Добавь ссылки для остальных файлов по аналогии
-    };
+   const emailData = {
+  lastname: formData.get('lastname'),
+  firstname: formData.get('firstname'),
+  middlename: formData.get('middlename'),
+  email: formData.get('email'),
+  program: formData.get('program'),
+  passport_url: fileUrls[0] || '',
+  education_url: fileUrls[1] || '',
+  photo_url: fileUrls[2] || '',
+  additional_url: fileUrls[3] || '',
+  application_statement_url: fileUrls[4] || '',
+  dormitory_statement_url: fileUrls[5] || '',
+  consent_url: fileUrls[6] || ''
+};
 
     emailjs.send('service_ejbo31j', 'template_m0i7mf8', emailData)
       .then(() => {
