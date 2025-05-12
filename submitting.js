@@ -296,4 +296,4 @@
   // Загружаем Google API
   loadGoogleAPI();
   initGoogleDriveAPI();
-}();
+})();
