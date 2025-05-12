@@ -37,6 +37,13 @@
         <label for="additional">Прочие документы (по желанию)</label>
         <input type="file" id="additional" name="additional" multiple accept=".pdf,.jpg,.jpeg,.png">
 
+        <!-- Новые поля -->
+        <label for="application_statement">Скан заявления</label>
+        <input type="file" id="application_statement" name="application_statement" accept=".pdf,.jpg,.jpeg,.png" required>
+
+        <label for="dormitory_statement">Скан заявления на общежитие</label>
+        <input type="file" id="dormitory_statement" name="dormitory_statement" accept=".pdf,.jpg,.jpeg,.png" required>
+
         <label>
           <input type="checkbox" name="agree" required>
           Согласие на обработку персональных данных
