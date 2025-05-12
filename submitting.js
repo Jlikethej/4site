@@ -39,15 +39,17 @@
 
             <label for="education">Скан документа об образовании</label>
             <input type="file" id="education" name="education" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
-
-            <label for="photo">Фотография 3x4</label>
-            <input type="file" id="photo" name="photo" accept=".jpg,.jpeg,.png" required>
           </div>
 
           <div class="file-row">
+            <label for="photo">Фотография 3x4</label>
+            <input type="file" id="photo" name="photo" accept=".jpg,.jpeg,.png" required>
+
             <label for="additional">Прочие документы (СНИЛС и т.д.)</label>
             <input type="file" id="additional" name="additional" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+          </div>
 
+          <div class="file-row">
             <label for="application_statement">Скан заявления</label>
             <input type="file" id="application_statement" name="application_statement" accept=".pdf,.jpg,.jpeg,.png" required>
 
@@ -106,6 +108,7 @@
     .form-row label {
       display: block;
       font-weight: bold;
+      width: 100%;
     }
 
     .form-row input,
@@ -133,19 +136,16 @@
 
     .file-row label {
       font-weight: bold;
+      width: 100%;
     }
 
     .file-row input {
-      width: 30%;
+      width: 48%;
       padding: 10px;
       margin-top: 5px;
       border-radius: 6px;
       border: 1px solid #ccc;
       box-sizing: border-box;
-    }
-
-    .file-row input[type="file"] {
-      width: 32%;
     }
 
     #form-container button {
