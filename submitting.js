@@ -194,7 +194,7 @@
 
   function initGoogleAuth() {
     gapi.auth2.init({
-      client_id: '837486853816-preg9mlngaqoi5kp4mkafjv6shmle2ua.apps.googleusercontent.com  ',
+      client_id: '837486853816-preg9mlngaqoi5kp4mkafjv6shmle2ua.apps.googleusercontent.com', // Исправил проблему с пробелом в client_id
     }).then(() => {
       gapiLoaded = true;
     });
