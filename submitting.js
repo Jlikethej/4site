@@ -32,30 +32,34 @@
         </div>
 
         <!-- Группа для файлов -->
-        <div class="form-row file-group">
-          <label for="passport">Скан паспорта</label>
-          <input type="file" id="passport" name="passport" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
+        <div class="file-group">
+          <div class="file-row">
+            <label for="passport">Скан паспорта</label>
+            <input type="file" id="passport" name="passport" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
 
-          <label for="education">Скан документа об образовании</label>
-          <input type="file" id="education" name="education" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
+            <label for="education">Скан документа об образовании</label>
+            <input type="file" id="education" name="education" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
 
-          <label for="photo">Фотография 3x4</label>
-          <input type="file" id="photo" name="photo" accept=".jpg,.jpeg,.png" required>
+            <label for="photo">Фотография 3x4</label>
+            <input type="file" id="photo" name="photo" accept=".jpg,.jpeg,.png" required>
+          </div>
 
-          <label for="additional">Прочие документы (СНИЛС и т.д.)</label>
-          <input type="file" id="additional" name="additional" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
-        </div>
+          <div class="file-row">
+            <label for="additional">Прочие документы (СНИЛС и т.д.)</label>
+            <input type="file" id="additional" name="additional" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
 
-        <!-- Новые поля -->
-        <div class="form-row file-group">
-          <label for="application_statement">Скан заявления</label>
-          <input type="file" id="application_statement" name="application_statement" accept=".pdf,.jpg,.jpeg,.png" required>
+            <label for="application_statement">Скан заявления</label>
+            <input type="file" id="application_statement" name="application_statement" accept=".pdf,.jpg,.jpeg,.png" required>
 
-          <label for="dormitory_statement">Скан заявления на общежитие</label>
-          <input type="file" id="dormitory_statement" name="dormitory_statement" accept=".pdf,.jpg,.jpeg,.png" required>
+            <label for="dormitory_statement">Скан заявления на общежитие</label>
+            <input type="file" id="dormitory_statement" name="dormitory_statement" accept=".pdf,.jpg,.jpeg,.png" required>
+          </div>
 
-          <label for="consent">Скан согласия на обработку персональных данных</label>
-          <input type="file" id="consent" name="consent" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
+          <!-- Согласие на обработку данных -->
+          <div class="file-row">
+            <label for="consent">Скан согласия на обработку персональных данных</label>
+            <input type="file" id="consent" name="consent" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required>
+          </div>
         </div>
 
         <button type="submit">Отправить заявление</button>
@@ -118,15 +122,30 @@
     .file-group {
       display: flex;
       flex-direction: column;
+      gap: 20px;
     }
 
-    .file-group label {
-      margin-top: 10px;
+    .file-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
     }
 
-    .file-group input {
-      width: 100%;
+    .file-row label {
+      font-weight: bold;
+    }
+
+    .file-row input {
+      width: 30%;
+      padding: 10px;
       margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    .file-row input[type="file"] {
+      width: 32%;
     }
 
     #form-container button {
