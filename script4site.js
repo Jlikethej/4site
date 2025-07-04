@@ -1,5 +1,5 @@
 (function () {
-  // Создаём HTML
+
   const html = `
     <div id="floating-buttons">
       <button id="proposal-btn">Оплатить по QR-коду СБЕР</button>
