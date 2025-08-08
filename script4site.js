@@ -130,7 +130,7 @@
 
   overlay.onclick = function () {
     overlay.classList.add("hidden");
-    proposalModal.classList.add("hidden");
+    proposalModal.classList.add("hidden");*/
     payModal.classList.add("hidden");
   };
 })();
