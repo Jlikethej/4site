@@ -1,4 +1,4 @@
-(function () {
+/*(function () {
 
   const html = `
     <div id="floating-buttons">
