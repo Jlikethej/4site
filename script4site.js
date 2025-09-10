@@ -1,4 +1,4 @@
-/*(function () {
+(function () {
 
   const html = `
     <div id="floating-buttons">
@@ -11,7 +11,7 @@
     <div id="proposal-modal" class="modal hidden">
       <div class="modal-content">
         <h2>Оплата по QR-коду СБЕР</h2>
-        <img src="/uploads/sites_uploads/site-1803/qr/895253/QR_SBER.png" style="width:100%;border-radius:12px;">
+        <img src="/uploads/sites_uploads/site-1803/qr/1123482/sber.png" style="width:100%;border-radius:12px;">
         <button class="close-modal">Закрыть</button>
       </div>
     </div>
@@ -19,7 +19,7 @@
     <div id="pay-modal" class="modal hidden">
       <div class="modal-content">
         <h2>Оплата по QR-коду ВТБ</h2>
-        <img src="/uploads/sites_uploads/site-1803/qr/874211/qr_site_VTB.png" style="width:100%;border-radius:12px;">
+        <img src="/uploads/sites_uploads/site-1803/qr/1123483/vtb.jpg" style="width:100%;border-radius:12px;">
         <button class="close-modal">Закрыть</button>
       </div>
     </div>
@@ -130,7 +130,7 @@
 
   overlay.onclick = function () {
     overlay.classList.add("hidden");
-    proposalModal.classList.add("hidden");*/
+    proposalModal.classList.add("hidden");
     payModal.classList.add("hidden");
   };
 })();
