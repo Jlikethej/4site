@@ -85,8 +85,6 @@
       <div class="slider-dots">
         <span class="dot active"></span>
         <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
       </div>
     </div>
   `;
