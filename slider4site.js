@@ -119,8 +119,11 @@
     const clickableIndex = 2; // третья картинка (нумерация с 0)
     images[clickableIndex].style.cursor = "pointer";
     images[clickableIndex].addEventListener("click", () => {
-      window.location.href = "https://kkst.kemobl.ru/studentam/zashishayu-rodinu/";
-      });
+  if (index === clickableIndex) {
+    window.location.href = "https://kkst.kemobl.ru/studentam/zashishayu-rodinu/";
+  }
+});
+
     const prev = container.querySelector('.custom-prev');
     const next = container.querySelector('.custom-next');
     const dots = container.querySelectorAll('.slider-dots .dot');
