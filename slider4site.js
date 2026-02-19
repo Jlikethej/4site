@@ -79,7 +79,9 @@
       <div class="custom-slides">
         <img src="/uploads/sites_uploads/site-1803/slider/895259/2.jpeg" alt="" class="active">
         <img src="/uploads/sites_uploads/site-1803/slider/895260/3.jpeg" alt="">
+        <a href="https://kkst.kemobl.ru/studentam/zashishayu-rodinu/">
         <img src="/uploads/sites_uploads/site-1803/slider/1526613/bpla.jpg" alt="">
+        </a>
       </div>
       <button class="custom-prev">&#10094;</button>
       <button class="custom-next">&#10095;</button>
