@@ -77,9 +77,9 @@
 
     <div class="custom-slider">
       <div class="custom-slides">
-        <img src="/uploads/sites_uploads/site-1803/slider/895259/2.jpeg" alt="" class="active">
-        <img src="/uploads/sites_uploads/site-1803/slider/895260/3.jpeg" alt="">
-        <img src="/uploads/sites_uploads/site-1803/slider/1528182/bpla1.jpg" alt="">
+        <img src="/uploads/sites_uploads/site-1803/slider/895260/3.jpeg" alt="" class="active">
+     
+
       </div>
       <button class="custom-prev">&#10094;</button>
       <button class="custom-next">&#10095;</button>
