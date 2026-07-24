@@ -11,7 +11,7 @@
     <div id="proposal-modal" class="modal hidden">
       <div class="modal-content">
         <h2>Оплата по QR-коду СБЕР</h2>
-        <img src="/uploads/sites_uploads/site-1803/qr/1123482/sber.png" style="width:100%;border-radius:12px;">
+        <img src="/uploads/sites_uploads/site-1803/qr/1866351/qr-sber1.png" style="width:100%;border-radius:12px;">
         <button class="close-modal">Закрыть</button>
       </div>
     </div>
